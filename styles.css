@@ -10,6 +10,15 @@
     padding: 0; /* No padding */
 }
 
+.button {
+    padding: 15px 30px; /* Button padding */
+    font-size: 18px; /* Button font size */
+    width: 200px; /* Button width */
+    height: 60px; /* Button height */
+    background-color: blue; /* Button background color */
+    color: white; /* Button text color */
+    
+}
 .h1 {
     color: darkblue; /* Heading color */
     text-align: center; /* Centered text */
