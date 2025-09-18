@@ -1,5 +1,27 @@
 
-test.color {
-    color: red; /* This is a test comment */
-    background-color: blue; /* Another comment */
+.test{
+    color: black; /* This is a test comment */
+    background-color: lightblue; /* Another comment */
+}
+
+.body {
+    font-family: Arial, sans-serif; /* Font family */
+    margin: 0; /* No margin */
+    padding: 0; /* No padding */
+}
+
+.h1 {
+    color: darkblue; /* Heading color */
+    text-align: center; /* Centered text */
+}
+.h2
+
+.h3 {
+    color: darkgreen; /* Subheading color */
+    text-align: left; /* Left aligned text */
+}
+
+.h4 {
+    color: darkred; /* Subheading color */
+    text-align: left; /* Left aligned text */
 }
