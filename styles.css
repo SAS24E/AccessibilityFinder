@@ -23,7 +23,11 @@
     color: darkblue; /* Heading color */
     text-align: center; /* Centered text */
 }
-.h2
+
+.h2 {
+    color: darkorange; /* Subheading color */
+    text-align: left; /* Left aligned text */
+}
 
 .h3 {
     color: darkgreen; /* Subheading color */
