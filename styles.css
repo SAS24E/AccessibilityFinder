@@ -1,40 +1,79 @@
-
-.test{
-    color: black; /* This is a test comment */
-    background-color: lightblue; /* Another comment */
-}
-
-.body {
+body {
     font-family: Arial, sans-serif; /* Font family */
-    margin: 0; /* No margin */
-    padding: 0; /* No padding */
+    margin: 0; /* Remove default margin */
+    min-height: 100vh; /* Full viewport height */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack items vertically */
 }
 
-.button {
-    padding: 15px 30px; /* Button padding */
-    font-size: 18px; /* Button font size */
-    width: 200px; /* Button width */
-    height: 60px; /* Button height */
-    background-color: blue; /* Button background color */
-    color: white; /* Button text color */
-    
+main {
+    flex: 1; /* Allow main to grow and fill available space */
 }
-.h1 {
-    color: darkblue; /* Heading color */
+
+
+h1 {
+    color: white; /* Heading color */
     text-align: center; /* Centered text */
 }
 
-.h2 {
+h2 {
     color: darkorange; /* Subheading color */
     text-align: left; /* Left aligned text */
 }
 
-.h3 {
+h3 {
     color: darkgreen; /* Subheading color */
     text-align: left; /* Left aligned text */
 }
 
-.h4 {
+h4 {
     color: darkred; /* Subheading color */
     text-align: left; /* Left aligned text */
+}
+
+.site-header {
+    background-color: rgb(0, 114, 198); /* Header background color */
+    color: darkorange; /* Header text color */
+    padding: 6px 20px; /* Header padding  Vertical - Horizontal */
+    align-items: center; /* Align items to the start */
+    text-align: center; /* Centered text */
+    box-shadow : 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    width: 100%; /* Full width */
+    display:flex; /* Flexbox layout */
+    flex-direction: column; /* Stack items vertically on small screens */
+}
+
+.site-footer {
+    background-color: rgb(0, 114, 198); /* Footer background color */
+    color: white; /* Footer text color */
+    padding: 10px 20px; /* Footer padding Vertical - Horizontal */
+    text-align: center; /* Centered text */
+    width: 100%; /* Full width */
+    box-shadow : 0 -2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    width: 100%; /* Full width */
+}
+
+.site-navigation-button {
+    color: white; /* Button text color */
+    background-color: rgb(0, 153, 255); /* Button background color */
+    margin-left: 0px 8px; /* Space between buttons */
+    padding: 6px 14px; /* Button padding */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+    font-weight: 500; /* Medium font weight */
+    text-decoration: none; /* Remove underline */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Hover effect */
+.site-navigation-button:hover {
+  background-color: rgb(0, 114, 198);
+  transform: translateY(-2px);   /* little "lift" on hover */
+}
+
+/* Active (when clicked) */
+.site-navigation-button:active {
+  background-color: rgb(0, 90, 160);
+  transform: translateY(0);
 }
