@@ -7,6 +7,7 @@
 - **Maria Vegas** – mvv22a@fsu.edu  
 - **Daniela Nunez** – dn23e@fsu.edu 
 
+Website URL:  accessiblityfinder.xo.je
 Problem Statement:
 People with disabilities often face challenges in their quality of life experiences. Being able to go out and enjoy certain activities can be difficult not only because of their disabilities but also because of locations that do not accommodate their needs. There needs to be a centralized place to find restaurants, events, or social activities that recognize their accommodations for people with disabilities, and consumers can back up what the businesses claim. 
 
