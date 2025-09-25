@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+        <h1>Guest</h1>
+        
+        <form method="post">
+            Search for restaurant: <input name="restaurant">
+            
+            Radius: <input type="number" name= "radius">
+            
+            <fieldset>
+                <legend>Filter by Type:</legend>
+
+                <label>
+                    <input type="checkbox" name="category[]" value="italian">
+                    Italian
+                </label>
+
+                <label>
+                    <input type="checkbox" name="category[]" value="chinese">
+                    Chinese
+                </label>
+
+                <label>
+                    <input type="checkbox" name="category[]" value="mexican">
+                    Mexican
+                </label>
+            </fieldset>
+
+            <br>
+            <button type="submit">Search</button>
+            
+        </form>
+          <h3>Here is where all the posts will show </h3>
+          
+    </body>
+</html>
