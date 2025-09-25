@@ -9,6 +9,7 @@ body {
 
 main {
     flex: 1; /* Allow main to grow and fill available space */
+    padding: 0px 40px; /* Padding around main content */
 }
 
 
@@ -76,4 +77,16 @@ h4 {
 .site-navigation-button:active {
   background-color: rgb(0, 90, 160);
   transform: translateY(0);
+}
+
+.text-box {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px; /* Padding inside the textbox */
+    margin: 8px 0; /* Margin around the textbox */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    border: 2px solid #ccc; /* Border style */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+    font-size: 16px; /* Font size */
+    line-height: 1.5; /* Line height for better readability */
 }
