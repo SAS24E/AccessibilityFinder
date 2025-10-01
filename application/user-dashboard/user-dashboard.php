@@ -9,7 +9,7 @@
         <header class="site-header">
             <h1>Accessiblity Finder</h1>
             <nav>
-                <a class="site-navigation-button" href="../../index.html">Home</a>
+                <a class="site-navigation-button" href="../../index.php">Home</a>
             </nav>
         </header>
 
