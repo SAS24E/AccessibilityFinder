@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../../public/styles.css">
     <title>Accessiblity Finder</title>
 </head>
 <body>
@@ -26,7 +26,19 @@
             echo "<p style='text-align:right; margin-right:20px;'><a href='../application/views/login.php'>Login</a> | <a href='../application/views/register.php'>Register</a></p>";
         }
     ?>
-        <h2>Welcome to Accessibility Finder!</h2>
+    <form action="../application/controllers/UserController.php?action=login" method="POST">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <input type="submit" value="Login">
+    </form>
+
+
+
+
     <div>
         <form action="" method="get">
             <label for="username">Username:</label>

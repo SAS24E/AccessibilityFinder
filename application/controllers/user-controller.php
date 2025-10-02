@@ -1,47 +1,60 @@
 <?php
-require_once 'application/models/user.php';
-require_once 'database/database.php';
+session_start();
+
+require_once __DIR__ . '/../models/user.php';
+require_once __DIR__ . '/../../database/database.php';
 
 class UserController {
-    private $conn;
-    private $table = 'users';
-
-    public $id;
-    public $name;
-    public $email;
+    private $user;
 
     public function __construct(){
-        $this->conn = new Database;
+        $db = new Database();
+        $conn = $db->connect();
+        $this->user = new User($conn);
     }
 
-    public function register($data){
-        $this->conn->query('INSERT INTO users (name, email, password) VALUES(:name, :email, :password)');
-        // Bind values
-        $this->conn->bind(':name', $data['name']);
-        $this->conn->bind(':email', $data['email']);
-        $this->conn->bind(':password', $data['password']);
+    public function register(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'name' => $_POST['name'],
+                'email' => $_POST['email'],
+                'password' => $_POST['password']
+            ];
 
-        // Execute
-        if($this->conn->execute()){
-            return true;
-        } else {
-            return false;
+            if ($this->user->register($data)) {
+                header("Location: ../../public/index.php?registered=1");
+                exit;
+            } else {
+                echo "Registration failed.";
+            }
         }
     }
 
-    public function login($email, $password){
-        $this->conn->query('SELECT * FROM users WHERE email = :email');
-        $this->conn->bind(':email', $email);
+    public function login(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
 
-        $row = $this->conn->single();
+            $loggedInUser = $this->user->login($email, $password);
 
-        $hashed_password = $row->password;
-        if(password_verify($password, $hashed_password)){
-            return $row;
-        } else {
-            return false;
+            if ($loggedInUser) {
+                $_SESSION['user_id'] = $loggedInUser->id;
+                $_SESSION['user_name'] = $loggedInUser->name;
+                header("Location: ../../public/index.php");
+                exit;
+            } else {
+                echo "<p style='color:red;'>Invalid email or password.</p>";
+            }
         }
     }
 }
-?>
-    
+
+// Simple routing
+if (isset($_GET['action'])) {
+    $controller = new UserController();
+    if ($_GET['action'] === 'register') {
+        $controller->register();
+    } elseif ($_GET['action'] === 'login') {
+        $controller->login();
+    }
+}
