@@ -11,12 +11,14 @@
     <header class ="site-header">
         <h1>Accessiblity Finder</h1>
         <nav>
-            <a class="site-navigation-button" href="application/guest-dashboard/guest-dashboard.html">Guest Dashboard</a>
-            <a class="site-navigation-button" href="application/user-dashboard/user-dashboard.html">User Dashboard</a>
+            <a class="site-navigation-button" href="application/guest-dashboard/guest-dashboard.php">Guest Dashboard</a>
+            <a class="site-navigation-button" href="application/user-dashboard/user-dashboard.php">User Dashboard</a>
         </nav>
     </header>
 
     <main>
+    <?php echo "<h4>hello world!</h4>"; ?>
+        
             <h2>Welcome to Accessibility Finder!</h2>
         <div class="text-box">
             <p>Your go-to platform for finding and sharing information about accessible restaurants. Whether you're a guest or a registered user, our platform is designed to help you discover dining options that cater to your accessibility needs.</p>
