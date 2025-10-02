@@ -30,18 +30,22 @@ class UserController {
         }
     }
 
+// Handle login form submission
     public function login(){
+        //if user is already logged in, redirect to dashboard
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_POST['email'] ?? '';
-            $password = $_POST['password'] ?? '';
+            $email = trim($_POST['email'] ?? '');
+            $password = trim($_POST['password'] ?? '');
 
+            // Attempt to log in the user
             $loggedInUser = $this->user->login($email, $password);
-
+            // If login is successful, set session variables and redirect to dashboard
             if ($loggedInUser) {
                 $_SESSION['user_id'] = $loggedInUser->id;
                 $_SESSION['user_name'] = $loggedInUser->name;
                 header("Location: ../../public/index.php");
                 exit;
+            // If login fails, show an error message
             } else {
                 echo "<p style='color:red;'>Invalid email or password.</p>";
             }

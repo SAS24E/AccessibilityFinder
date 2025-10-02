@@ -17,11 +17,11 @@
     </header>
 
     <main>
-        
-    <?php session_start(); 
-            # allow users to register and login
+
+    <?php session_start();
+      // Display login/register or user info based on session (Good to see if user is logged in)
         if(isset($_SESSION['user_id'])) {
-            echo "<p style='text-align:right; margin-right:20px;'>Logged in as User ID: " . htmlspecialchars($_SESSION['user_id']) . " | <a href='../application/controllers/logout.php'>Logout</a></p>";
+            echo "<p style='text-align:right; margin-right:20px;'>Logged in as User: " . htmlspecialchars($_SESSION['user_name']) . " | <a href='../application/controllers/logout.php'>Logout</a></p>";
         } else {
             echo "<p style='text-align:right; margin-right:20px;'><a href='../application/views/login-dashboard.php'>Login</a> | <a href='../application/views/register.php'>Register</a></p>";
         }

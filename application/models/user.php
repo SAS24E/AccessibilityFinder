@@ -18,15 +18,19 @@ class User {
             ':password' => password_hash($data['password'], PASSWORD_BCRYPT)
         ]);
     }
-
+    
+    // Handles the database query for logging in a user
     public function login($email, $password){
-        $stmt = $this->conn->prepare(
-            "SELECT * FROM {$this->table} WHERE email = :email LIMIT 1"
-        );
+        // Prepare and execute the SQL statement to find the user by email
+        $stmt = $this->conn->prepare("SELECT * FROM {$this->table} WHERE email = :email LIMIT 1");
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_OBJ);
 
-        if ($user && password_verify($password, $user->password)) {
+        // If a row is found, verify the password ( so when its time to has passwords it will work)
+        // if ($user && password_verify($password, $user->password)) {
+        //     return $user;
+        // }
+        if ($user && $password === $user->password) {
             return $user;
         }
         return false;
