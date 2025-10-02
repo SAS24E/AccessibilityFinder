@@ -2,20 +2,20 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../styles.css">
+        <link rel="stylesheet" href="../../public/styles.css">
         <title>Accessiblity Finder</title>
     </head>
     <body>
     <header class ="site-header">
         <h1>Accessiblity Finder</h1>
         <nav>
-            <a class="site-navigation-button" href="../../index.php">Home</a>
+            <a class="site-navigation-button" href="../../public/index.php">Home</a>
         </nav>
     </header>
         <main>
             <h2>Guest</h2>
             <form method="post">
-                Search for restaurant: <input name="restaurant">
+                Search for restaurant: <input name="restaurant test">
         
                 Radius: <input type="number" name="radius">
         

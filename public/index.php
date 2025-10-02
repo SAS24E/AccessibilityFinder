@@ -11,13 +11,20 @@
     <header class ="site-header">
         <h1>Accessiblity Finder</h1>
         <nav>
-            <a class="site-navigation-button" href="application/guest-dashboard/guest-dashboard.php">Guest Dashboard</a>
-            <a class="site-navigation-button" href="application/user-dashboard/user-dashboard.php">User Dashboard</a>
+            <a class="site-navigation-button" href="../application/views/guest-dashboard.php">Guest Dashboard</a>
+            <a class="site-navigation-button" href="../application/views/user-dashboard.php">User Dashboard</a>
         </nav>
     </header>
 
     <main>
-    <?php echo "<h4>hello world!</h4>"; ?>
+    <?php session_start(); 
+            # allow users to register and login
+        if(isset($_SESSION['user_id'])) {
+            echo "<p style='text-align:right; margin-right:20px;'>Logged in as User ID: " . htmlspecialchars($_SESSION['user_id']) . " | <a href='../application/controllers/logout.php'>Logout</a></p>";
+        } else {
+            echo "<p style='text-align:right; margin-right:20px;'><a href='../application/views/login.php'>Login</a> | <a href='../application/views/register.php'>Register</a></p>";
+        }
+    ?>
         
             <h2>Welcome to Accessibility Finder!</h2>
         <div class="text-box">
