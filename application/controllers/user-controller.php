@@ -1,5 +1,6 @@
 <?php
 require_once 'application/models/user.php';
+require_once 'database/database.php';
 
 class UserController {
     private $conn;
@@ -40,31 +41,6 @@ class UserController {
         } else {
             return false;
         }
-    }
-
-    public function findUserByEmail($email){
-        $this->conn->query('SELECT * FROM users WHERE email = :email');
-        // Bind value
-        $this->conn->bind(':email', $email);
-
-        $row = $this->conn->single();
-
-        // Check row
-        if($this->conn->rowCount() > 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function getUserById($id){
-        $this->conn->query('SELECT * FROM users WHERE id = :id');
-        // Bind value
-        $this->conn->bind(':id', $id);
-
-        $row = $this->conn->single();
-
-        return $row;
     }
 }
 ?>
