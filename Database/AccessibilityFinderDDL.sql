@@ -12,3 +12,14 @@ CREATE TABLE users (
 );
 
 
+CREATE TABLE posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    location_id INT NOT NULL,
+    location_name VARCHAR(200) NOT NULL,
+    user_id INT NOT NULL,
+    opinion TEXT,
+    assistance_friendly ENUM('yes', 'no') NOT NULL,
+    image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
