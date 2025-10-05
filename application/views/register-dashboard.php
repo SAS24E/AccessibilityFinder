@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../public/styles.css">
-        <title>Accessiblity Finder</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../public/styles.css">
+    <title>Accessiblity Finder</title>
+</head>
     <body>
         <header class ="site-header">
             <h1>Accessiblity Finder</h1>
@@ -16,12 +16,12 @@
 
         <main>
             <div>
-                <h2>Login to Your Account</h2>
-                <p class='text-box'>If you already have an account, please log in below. If you don't have an account yet, you can <a href="register-dashboard.php">register here</a>.</p>
+                <h2>Create Your Account</h2>
+                <p class='text-box'>Please fill in the details below to create your account. If you already have an account, you can <a href="login-dashboard.php">log in here</a>.</p>
             </div>
-            <!-- Login Form -->
+            <!-- Registration Form -->
             <div class="login-container">
-                <form action="../controllers/user-controller.php?action=login" method="POST">
+                <form action="../controllers/user-controller.php?action=register" method="POST">
                     <!-- Username field added -->
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
@@ -37,9 +37,9 @@
                 </form>
             </div>
         </main>
+
         <footer class="site-footer">
             <p>&copy; 2025 AccessibilityFinder | Bit by Bit Team</p>
         </footer>
     </body>
 </html>
-
