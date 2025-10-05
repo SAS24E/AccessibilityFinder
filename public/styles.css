@@ -5,6 +5,7 @@ body {
     padding: 0; /* Remove default padding */
     display: flex; /* Flexbox layout */
     flex-direction: column; /* Stack items vertically */
+	background-color: rgba(230, 228, 229, 0.6); /* Background color */
 }
 
 main {
@@ -58,7 +59,7 @@ h4 {
 .site-navigation-button {
     color: white; /* Button text color */
     background-color: rgb(0, 153, 255); /* Button background color */
-    margin-left: 0px 8px; /* Space between buttons */
+    margin: 0 8px; /* Space between buttons */
     padding: 6px 14px; /* Button padding */
     border-radius: 4px; /* Rounded corners */
     transition: background-color 0.3s; /* Smooth transition */
@@ -99,4 +100,33 @@ h4 {
     border-radius: 8px; /* Rounded corners */
     background-color: #f9f9f9; /* Light background color */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.logged-in-bubble {
+	background-color: #e0ffe0; /* Light green background */
+	border: 1px solid #00cc00; /* Green border */
+	border-radius: 20px; /* Rounded corners */
+	padding: 8px 14px; /* Padding inside the bubble */
+	color: #006600; /* Dark green text */
+	font-weight: bold; /* Bold text */
+	text-align: center; /* Centered text */
+	margin: 10px 20px 10px auto; /* Margin around the bubble */
+	max-width: fit-content; /* Adjust width to content */
+	float: right; /* Align to the right */
+}
+
+.login-container form {
+	display: flex; /* Flexbox layout */
+	flex-direction: column; /* Stack items vertically */
+	background-image: url(https://images.unsplash.com/photo-1514064019862-23e2a332a6a6?q=80&w=1014&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); /* Background image */
+	background-size: cover; /* Cover the entire form area */
+	background-position: center; /* Center the background image */
+	padding: 200px; /* Padding inside the form */
+	border-radius: 10px; /* Rounded corners */
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+	color: white; /* Text color */
+	max-width: 2000px;
+	font-weight: bold;
+	gap: 4px; /* Space between elements */
+
 }

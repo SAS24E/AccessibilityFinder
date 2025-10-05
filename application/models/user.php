@@ -8,10 +8,12 @@ class User {
     }
 
     public function register($data){
+        // Prepare and execute the SQL statement to insert a new user
         $stmt = $this->conn->prepare(
             "INSERT INTO {$this->table} (name, email, password) 
              VALUES (:name, :email, :password)"
         );
+        // Bind parameters and hash the password before storing it
         return $stmt->execute([
             ':name' => $data['name'],
             ':email' => $data['email'],
@@ -27,12 +29,8 @@ class User {
         $user = $stmt->fetch(PDO::FETCH_OBJ);
 
         // If a row is found, verify the password ( so when its time to has passwords it will work)
-        // if ($user && password_verify($password, $user->password)) {
-        //     return $user;
-        // }
-        if ($user && $password === $user->password) {
+        if ($user && password_verify($password, $user->password)) {
             return $user;
         }
-        return false;
-    }
+    }    
 }
