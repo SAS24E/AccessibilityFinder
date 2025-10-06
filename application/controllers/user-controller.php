@@ -63,17 +63,40 @@ class UserController {
         }
     }
     public function logout(){
-    // start session and destroy it
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
+        // start session if not already started
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // clear session data
+        $_SESSION = [];
+        // destroy session
+        session_destroy();
+        // redirect to home page
+        header("Location: ../../public/index.php");
+        exit;
     }
-    // clear session data
-    $_SESSION = [];
-    // destoy session
-    session_destroy();
-    // redirect to home page
-    header("Location: ../../public/index.php");
-    exit();
+
+    // Show profile page for logged-in users
+    public function profile(){
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: ../../public/index.php");
+            exit;
+        }
+        // getUserById() is defined in models/user.php
+        // currently getUserById() returns a user object (name, email, password)
+        $userId = $_SESSION['user_id'];
+        $userData = $this->user->getUserById($userId);
+
+        // If user not found, display an error message
+        if (!$userData) {
+            echo "<p style='color:red;'>User not found.</p>";
+            return;
+        }
+
+        // Make $user available to the view
+        $user = $userData;
+        require_once __DIR__ . '/../views/profile-dashboard.php';
     }
 }
 
@@ -84,6 +107,8 @@ if (isset($_GET['action'])) {
         $controller->register();
     } elseif ($_GET['action'] === 'login') {
         $controller->login();
+    } elseif ($_GET['action'] === 'profile') {
+        $controller->profile();
     } elseif ($_GET['action'] === 'logout') {
         $controller->logout();
     }
