@@ -33,4 +33,11 @@ class User {
             return $user;
         }
     }    
+
+    // Fetch a single user by ID and return as an object
+    public function getUserById($id){
+        $stmt = $this->conn->prepare("SELECT * FROM {$this->table} WHERE id = :id LIMIT 1");
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
 }

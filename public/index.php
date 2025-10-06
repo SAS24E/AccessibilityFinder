@@ -21,7 +21,10 @@
     <?php session_start();
       // Display login/register or user info based on session (Good to see if user is logged in)
         if(isset($_SESSION['user_id'])) {
-            echo "<p class='logged-in-bubble'>Welcome " . htmlspecialchars($_SESSION['user_name']) . " <a class='site-navigation-button' href='../application/controllers/user-controller.php?action=logout'>Logout</a></p>";
+            // Show welcome message, profile link, and logout button for logged-in users
+            echo "<p class='logged-in-bubble'>Welcome " . htmlspecialchars($_SESSION['user_name']) . " !";
+            echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=profile'>Profile</a> ";
+            echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=logout'>Logout</a></p>";
         } else {
             echo "<p style='text-align:right; margin-right:20px;'><a class='site-navigation-button' href='../application/views/login-dashboard.php'>Login</a> <a class='site-navigation-button' href='../application/views/register-dashboard.php'>Register</a></p>";
         }
