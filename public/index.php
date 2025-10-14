@@ -6,6 +6,8 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <!-- MapLibre CSS -->
+    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
     <title>Accessiblity Finder</title>
 </head>
 <body>
@@ -37,7 +39,8 @@
             <p>Explore our guest dashboard for basic search functionalities or sign up to access advanced features like creating and managing posts about your experiences at various restaurants.</p>
         </div>
         <div class="map-container">
-        <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+              <!-- Map container: map.js initializes MapLibre on #map -->
+              <div id="map" style="height:400px; width:100%;"></div>
         <div>
         <!-- <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1748&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="World Map" style="width:100%;max-width:1200px;margin-top:20px; display:block; margin-left:auto; margin-right:auto;"> -->
     </main>
