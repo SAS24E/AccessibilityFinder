@@ -1,6 +1,6 @@
 <?php
-require_once '../controllers/post-controller.php';
-require_once '../Database/database.php'; 
+require_once __DIR__ . '/../controllers/post-controller.php';
+require_once __DIR__ . '/../../Database/database.php';
 
 $database = new Database();
 $db = $database->connect();
