@@ -1,51 +1,40 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../public/styles.css">
-        <title>Accessiblity Finder</title>
-    </head>
-    <body>
-    <header class ="site-header">
-        <h1>Accessiblity Finder</h1>
-        <nav>
-            <a class="site-navigation-button" href="../../public/index.php">Home</a>
-        </nav>
-    </header>
-        <main>
-            <h2>Guest</h2>
-            <form method="post">
-                Search for restaurant: <input name="restaurant test">
-        
-                Radius: <input type="number" name="radius">
-        
-                <fieldset>
-                    <legend>Filter by Type:</legend>
-        
-                    <label>
-                        <input type="checkbox" name="category[]" value="italian">
-                        Italian
-                    </label>
-        
-                    <label>
-                        <input type="checkbox" name="category[]" value="chinese">
-                        Chinese
-                    </label>
-        
-                    <label>
-                        <input type="checkbox" name="category[]" value="mexican">
-                        Mexican
-                    </label>
-                </fieldset>
-        
-                <br>
-                <button type="submit">Search</button>
-        
-            </form>
-            <h3>Here is where all the posts will show </h3>
-        </main>
-        <footer class="site-footer">
-            <p>&copy; 2025 AccessibilityFinder | Bit by Bit Team</p>
-        </footer>          
-    </body>
+<?php
+require_once '../controllers/post-controller.php';
+require_once '../Database/database.php'; 
+
+$database = new Database();
+$db = $database->connect();
+
+$controller = new PostController($db);
+$posts = $controller->index();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guest Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Accessibility Finder Posts</h1>
+
+    <?php if (!empty($posts)): ?>
+        <?php foreach ($posts as $post): ?>
+            <div class="post">
+                <h2><?= htmlspecialchars($post['location_name']); ?></h2>
+                <p><strong>Posted by:</strong> <?= htmlspecialchars($post['username']); ?></p>
+                <p><?= nl2br(htmlspecialchars($post['opinion'])); ?></p>
+                <p><strong>Assistance Friendly:</strong> <?= htmlspecialchars($post['assistance_friendly']); ?></p>
+                <?php if (!empty($post['image'])): ?>
+                    <img src="uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image" width="200">
+                <?php endif; ?>
+                <p><em>Posted on <?= htmlspecialchars($post['created_at']); ?></em></p>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No posts available yet.</p>
+    <?php endif; ?>
+</body>
 </html>
+
