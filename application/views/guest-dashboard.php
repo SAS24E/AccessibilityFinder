@@ -14,7 +14,7 @@ $posts = $controller->index();
 <head>
     <meta charset="UTF-8">
     <title>Guest Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../../public/styles.css">
 </head>
 <body>
     <h1>Accessibility Finder Posts</h1>
