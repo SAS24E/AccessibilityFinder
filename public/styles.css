@@ -130,3 +130,8 @@ h4 {
 	gap: 4px; /* Space between elements */
 
 }
+
+.map-container {
+    text-align: center; /* Center the map container */
+    margin-top: 20px; /* Space above the map */
+}
