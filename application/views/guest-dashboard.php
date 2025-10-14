@@ -17,7 +17,12 @@ $posts = $controller->index();
     <link rel="stylesheet" href="../../public/styles.css">
 </head>
 <body>
-    <h1>Accessibility Finder Posts</h1>
+    <header class="site-header">
+            <h1>Accessiblity Finder</h1>
+            <nav>
+                <a class="site-navigation-button" href="../../public/index.php">Home</a>
+            </nav>
+        </header>
 
     <?php if (!empty($posts)): ?>
         <?php foreach ($posts as $post): ?>
