@@ -29,6 +29,15 @@ class UserController {
             // Attempt to register the user
             if ($this->user->register($data)) {
                 header("Location: ../../public/index.php?registered=1");
+                
+                // If user registered successfully, redirect to home page and have them logged in.
+                $loggedInUser = $this->user->login($data['email'], $data['password']);
+                if ($loggedInUser) {
+                    $_SESSION['user_id'] = $loggedInUser->id;
+                    $_SESSION['user_name'] = $loggedInUser->name;
+                }
+                header("Location: ../../public/index.php");
+
                 exit;
             } else {
                 echo "<p style='color:red;'>Registration failed. Please try again.</p>";
