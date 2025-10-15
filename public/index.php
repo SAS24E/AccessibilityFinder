@@ -38,11 +38,13 @@
             <p>Your go-to platform for finding and sharing information about accessible restaurants. Whether you're a guest or a registered user, our platform is designed to help you discover dining options that cater to your accessibility needs.</p>
             <p>Explore our guest dashboard for basic search functionalities or sign up to access advanced features like creating and managing posts about your experiences at various restaurants.</p>
         </div>
-        <div class="map-container">
+
+            <div class="post-container">
+                <h2>Find Accessible Locations Near You!</h2>
+                <p>Use the map below to explore accessible restaurants in your area. Click on the markers to see more details about each location.</p>
+            </div>
               <!-- Map container: map.js initializes MapLibre on #map -->
-              <div id="map" style="height:400px; width:100%;"></div>
-        <div>
-        <!-- <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1748&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="World Map" style="width:100%;max-width:1200px;margin-top:20px; display:block; margin-left:auto; margin-right:auto;"> -->
+            <div id="map" class="map-container"></div>
     </main>
 
     <footer class="site-footer">

@@ -29,9 +29,10 @@ async function init() {
       closeOnClick: false,
     })
       .setLngLat(location)
-      .setHTML("<h3>You are approximately here!</h3>")
+      .setHTML("<h3>GOT Em!</h3>")
       .addTo(map);
   }
 }
 
 init();
+
