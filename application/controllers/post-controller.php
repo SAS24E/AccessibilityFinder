@@ -13,4 +13,4 @@ class PostController {
         return $this->model->getAllPosts();
     }
 }
-?>
+
