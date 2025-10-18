@@ -18,17 +18,17 @@ class LocationModel {
     // Create a new location and return its ID
     public function createLocation($data){
         // Insert new location using prepared statement
-        $sql = "INSERT INTO locations (name, description, latitude, longitude) VALUES (:name, :description, :latitude, :longitude)";
+        $sql = "INSERT INTO locations (name, address, latitude, longitude) VALUES (:name, :address, :latitude, :longitude)";
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);;
+        $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
+        $stmt->bindValue(':address', $data['address'] ?? null, PDO::PARAM_STR);
         $stmt->bindValue(':latitude', $data['latitude'] ?? null, PDO::PARAM_STR);
         $stmt->bindValue(':longitude', $data['longitude'] ?? null, PDO::PARAM_STR);
-        $stmt->bindValue(':address', $data['address'] ?? null, PDO::PARAM_STR);
-        if ($stmt->execute()) {
-            return $this->conn->lastInsertId();
+        if($stmt->execute()){
+            return $this->conn->lastInsertId(); // return new location ID
         } else {
-            return false;
+            return false; // insertion failed
         }
     }
 

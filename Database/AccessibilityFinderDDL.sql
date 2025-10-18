@@ -2,6 +2,8 @@ CREATE DATABASE IF NOT EXISTS accessibility_finder;
 USE accessibility_finder;
 
 DROP TABLE IF EXISTS users;
+Drop TABLE IF EXISTS posts;
+Drop TABLE IF EXISTS locations;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,

@@ -19,11 +19,21 @@
     <div style = "flex-direction : row; justify-content : space-around; display: flex;">
         <div class="location-form">
             <h2>Create New Location</h2>
-            <form id="create-location-form">
+            <form action="../controllers/location-controller.php?action=createLocation" method="POST">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required><br>
                 <br>
-                <button type="submit">Create Location</button>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address"><br>
+                <br>
+                <label for="latitude">Latitude:</label>
+                <input type="text" id="latitude" name="latitude"><br>
+                <br>
+                <label for="longitude">Longitude:</label>  
+                <input type="text" id="longitude" name="longitude"><br>
+                <br>
+                <button type="submit" value="createLocation">Create Location</button>
+
             </form>
         </div>
 
