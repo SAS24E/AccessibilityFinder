@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
@@ -10,20 +11,23 @@
     <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
     <title>Accessiblity Finder</title>
 </head>
+
 <body>
-    <header class ="site-header">
+    <header class="site-header">
         <h1>Accessiblity Finder</h1>
         <nav>
             <a class="site-navigation-button" href="../application/views/guest-dashboard.php">Guest Dashboard</a>
             <a class="site-navigation-button" href="../application/views/user-dashboard.php">User Dashboard</a>
+            <a class="site-navigation-button" href="../application/views/about-us.php">About Us</a>
+            <a class="site-navigation-button" href="../application/views/location-dashboard.php">Location Management</a>
         </nav>
     </header>
 
     <main>
 
-    <?php session_start();
-      // Display login/register or user info based on session (Good to see if user is logged in)
-        if(isset($_SESSION['user_id'])) {
+        <?php session_start();
+        // Display login/register or user info based on session (Good to see if user is logged in)
+        if (isset($_SESSION['user_id'])) {
             // Show welcome message, profile link, and logout button for logged-in users
             echo "<p class='logged-in-bubble'>Welcome " . htmlspecialchars($_SESSION['user_name']) . " !";
             echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=profile'>Profile</a> ";
@@ -31,20 +35,24 @@
         } else {
             echo "<p style='text-align:right; margin-right:20px;'><a class='site-navigation-button' href='../application/views/login-dashboard.php'>Login</a> <a class='site-navigation-button' href='../application/views/register-dashboard.php'>Register</a></p>";
         }
-    ?>
-        
-            <h2>Welcome to Accessibility Finder!</h2>
+        ?>
+
+        <h2>Welcome to Accessibility Finder!</h2>
         <div class="text-box">
             <p>Your go-to platform for finding and sharing information about accessible restaurants. Whether you're a guest or a registered user, our platform is designed to help you discover dining options that cater to your accessibility needs.</p>
             <p>Explore our guest dashboard for basic search functionalities or sign up to access advanced features like creating and managing posts about your experiences at various restaurants.</p>
         </div>
 
-            <div class="post-container">
-                <h2>Find Accessible Locations Near You!</h2>
-                <p>Use the map below to explore accessible restaurants in your area. Click on the markers to see more details about each location.</p>
-            </div>
-              <!-- Map container: map.js initializes MapLibre on #map -->
-            <div id="map" class="map-container"></div>
+        <div class="post-container">
+            <h2>Find Accessible Locations Near You!</h2>
+            <p>Use the map below to explore accessible restaurants in your area. Click on the markers to see more details about each location.</p>
+        </div>
+        <!-- Map container: map.js initializes MapLibre on #map -->
+        <div id="search-bar-container">
+            <input type="text" id="search-input" placeholder="Search for accessible locations...">
+            <button id="search-button">Search</button>
+            <div id="map" class="map-container-home"></div>
+        </div>
     </main>
 
     <footer class="site-footer">
@@ -52,5 +60,5 @@
     </footer>
     <script type="module" src="map.js"></script>
 </body>
-</html>
 
+</html>

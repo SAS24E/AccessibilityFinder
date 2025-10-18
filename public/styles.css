@@ -132,19 +132,50 @@ h4 {
 
 }
 
-.map-container {
+.map-container-home {
     text-align: center; /* Center the map container */
     margin-top: 20px; /* Space above the map */
     height:600px; /* Fixed height for the map */
     max-width: 600px; /* Limit the width of the map */
 }
+.map-container-location-dashboard {
+    text-align: center; /* Center the map container */
+    margin-top: 20px; /* Space above the map */
+    height:500px; /* Fixed height for the map */
+    max-width: 100%; /* Limit the width of the map */
+}
 
 .post-container {
     max-width: 800px; /* Limit the width of the post container */
     margin: 20px auto; /* Center the container with margin on top and bottom */
-    padding: 20px; /* Padding inside the container */
+    padding: 10px; /* Padding inside the container */
     border: 1px solid #ccc; /* Border style */
     border-radius: 8px; /* Rounded corners */
     background-color: #f9f9f9; /* Light background color */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.location-form {
+    max-width: 600px; /* Limit the width of the location form */
+    margin: 20px auto; /* Center the form with margin on top and bottom */
+    padding: 20px; /* Padding inside the form */
+    border: 1px solid #ccc; /* Border style */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+}
+.about-us-text-box {
+    display: flex; /* Flexbox layout */
+    padding: 10px; /* Padding inside the textbox */
+    margin: 8px 0; /* Margin around the textbox */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    border: 2px solid #ccc; /* Border style */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+    font-size: 16px; /* Font size */
+    line-height: 1.5; /* Line height for better readability */
+}
+.about-us-image {
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    margin-top: 20px; /* Space above the image */
+    border-radius: 8px; /* Rounded corners */
 }
