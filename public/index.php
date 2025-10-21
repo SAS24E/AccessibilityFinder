@@ -49,12 +49,6 @@ $posts = $controller->index();
         }
         ?>
 
-        <h2>Welcome to Accessibility Finder!</h2>
-        <div class="text-box">
-            <p>Your go-to platform for finding and sharing information about accessible restaurants. Whether you're a guest or a registered user, our platform is designed to help you discover dining options that cater to your accessibility needs.</p>
-            <p>Explore our guest dashboard for basic search functionalities or sign up to access advanced features like creating and managing posts about your experiences at various restaurants.</p>
-        </div>
-
         <div class="post-container">
             <h2>Find Accessible Locations Near You!</h2>
             <p>Use the map below to explore accessible restaurants in your area. Click on the markers to see more details about each location.</p>
@@ -93,6 +87,44 @@ $posts = $controller->index();
         <p>&copy; 2025 AccessibilityFinder | Bit by Bit Team</p>
     </footer>
     <script type="module" src="map.js"></script>
+
+    <!-- Welcome Popup -->
+<div id="welcomePopup" class="popup-overlay">
+  <div class="popup-box">
+    <span class="close-btn" id="closePopup">&times;</span>
+    <h2>Welcome to Accessibility Finder!</h2>
+    <p>
+      Your go-to platform for finding and sharing information about accessible restaurants.
+      Whether you're a guest or a registered user, our platform is designed to help you
+      discover dining options that cater to your accessibility needs.
+    </p>
+    <p>
+      Explore our guest dashboard for basic search functionalities or sign up to access
+      advanced features like creating and managing posts about your experiences at various restaurants.
+    </p>
+  </div>
+</div>
+
+<script>
+  // Show popup on page load
+  window.onload = function() {
+    document.getElementById("welcomePopup").style.display = "flex";
+  };
+
+  // Close popup when clicking the X button
+  document.getElementById("closePopup").onclick = function() {
+    document.getElementById("welcomePopup").style.display = "none";
+  };
+
+  // Close popup when clicking outside the box
+  window.onclick = function(event) {
+    let popup = document.getElementById("welcomePopup");
+    if (event.target === popup) {
+      popup.style.display = "none";
+    }
+  };
+</script>
+
 
  
 </body>
