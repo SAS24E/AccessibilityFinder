@@ -2,6 +2,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+require_once __DIR__ . '/../controllers/post-controller.php';
+require_once __DIR__ . '/../../Database/database.php';
+
+$database = new Database();
+$db = $database->connect();
+
+$controller = new PostController($db);
+$posts = $controller->index();
+?>
+
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
@@ -59,6 +70,23 @@
         <p>&copy; 2025 AccessibilityFinder | Bit by Bit Team</p>
     </footer>
     <script type="module" src="map.js"></script>
+
+    <?php if (!empty($posts)): ?>
+        <?php foreach ($posts as $post): ?>
+            <div class="post">
+                <h2><?= htmlspecialchars($post['location_name']); ?></h2>
+                <p><strong>Posted by:</strong> <?= htmlspecialchars($post['username']); ?></p>
+                <p><?= nl2br(htmlspecialchars($post['opinion'])); ?></p>
+                <p><strong>Assistance Friendly:</strong> <?= htmlspecialchars($post['assistance_friendly']); ?></p>
+                <?php if (!empty($post['image'])): ?>
+                    <img src="uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image" width="200">
+                <?php endif; ?>
+                <p><em>Posted on <?= htmlspecialchars($post['created_at']); ?></em></p>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No posts available yet.</p>
+    <?php endif; ?>
 </body>
 
 </html>
