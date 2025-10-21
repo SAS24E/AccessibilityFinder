@@ -3,8 +3,9 @@
 <html lang="en">
 
 <?php
-require_once __DIR__ . '/../controllers/post-controller.php';
-require_once __DIR__ . '/../../Database/database.php';
+require_once __DIR__ . '/../application/controllers/post-controller.php';
+require_once __DIR__ . '/../Database/database.php';
+
 
 $database = new Database();
 $db = $database->connect();
@@ -58,20 +59,17 @@ $posts = $controller->index();
             <h2>Find Accessible Locations Near You!</h2>
             <p>Use the map below to explore accessible restaurants in your area. Click on the markers to see more details about each location.</p>
         </div>
+
+        <div class="map-posts-wrapper">
         <!-- Map container: map.js initializes MapLibre on #map -->
         <div id="search-bar-container">
             <input type="text" id="search-input" placeholder="Search for accessible locations...">
             <button id="search-button">Search</button>
             <div id="map" class="map-container-home"></div>
         </div>
-    </main>
 
-    <footer class="site-footer">
-        <p>&copy; 2025 AccessibilityFinder | Bit by Bit Team</p>
-    </footer>
-    <script type="module" src="map.js"></script>
-
-    <?php if (!empty($posts)): ?>
+        <div class ="posts-container">
+           <?php if (!empty($posts)): ?>
         <?php foreach ($posts as $post): ?>
             <div class="post">
                 <h2><?= htmlspecialchars($post['location_name']); ?></h2>
@@ -87,6 +85,16 @@ $posts = $controller->index();
     <?php else: ?>
         <p>No posts available yet.</p>
     <?php endif; ?>
+    </div>
+    </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 AccessibilityFinder | Bit by Bit Team</p>
+    </footer>
+    <script type="module" src="map.js"></script>
+
+ 
 </body>
 
 </html>

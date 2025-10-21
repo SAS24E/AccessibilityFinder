@@ -133,10 +133,12 @@ h4 {
 }
 
 .map-container-home {
-    text-align: center; /* Center the map container */
-    margin-top: 20px; /* Space above the map */
-    height:600px; /* Fixed height for the map */
-    max-width: 600px; /* Limit the width of the map */
+       flex: 1;
+    width: 100%;
+    height: 100%;          /* fill the height of the wrapper */
+    min-height: 100px;     /* ensure it’s tall enough */
+    border-radius: 10px;
+    overflow: hidden;
 }
 .map-container-location-dashboard {
     text-align: center; /* Center the map container */
@@ -145,14 +147,36 @@ h4 {
     max-width: 100%; /* Limit the width of the map */
 }
 
-.post-container {
-    max-width: 800px; /* Limit the width of the post container */
-    margin: 20px auto; /* Center the container with margin on top and bottom */
-    padding: 10px; /* Padding inside the container */
-    border: 1px solid #ccc; /* Border style */
-    border-radius: 8px; /* Rounded corners */
-    background-color: #f9f9f9; /* Light background color */
+.posts-container {
+     flex: 1.8;             /* 🟩 give posts more space — takes about 60% width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    height: auto;
 }
+
+.post {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 60%;             /* Adjust width for your layout */
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map-posts-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* make both map and posts equal height */
+    gap: 10px;
+    padding: 20px;
+    height: auto; 
+    align-content: stretch;
+}
+
 
 .location-form {
     max-width: 600px; /* Limit the width of the location form */
@@ -179,3 +203,9 @@ h4 {
     margin-top: 20px; /* Space above the image */
     border-radius: 8px; /* Rounded corners */
 }
+
+#search-bar-container {
+    flex: 2;
+    max-width: 900px;
+}
+
