@@ -133,11 +133,14 @@ h4 {
 }
 
 .map-container-home {
-    text-align: center; /* Center the map container */
-    margin-top: 20px; /* Space above the map */
-    height:600px; /* Fixed height for the map */
-    max-width: 600px; /* Limit the width of the map */
+    flex: 1;
+    width: 125%;
+    height: auto;           /* ✅ let content determine height */
+    min-height: 500px;      /* ✅ ensure it’s tall enough to be visible */
+    border-radius: 10px;
+    overflow: hidden;
 }
+
 .map-container-location-dashboard {
     text-align: center; /* Center the map container */
     margin-top: 20px; /* Space above the map */
@@ -145,14 +148,37 @@ h4 {
     max-width: 100%; /* Limit the width of the map */
 }
 
-.post-container {
-    max-width: 800px; /* Limit the width of the post container */
-    margin: 20px auto; /* Center the container with margin on top and bottom */
-    padding: 10px; /* Padding inside the container */
-    border: 1px solid #ccc; /* Border style */
-    border-radius: 8px; /* Rounded corners */
-    background-color: #f9f9f9; /* Light background color */
+.posts-container {
+    flex: 1.8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    height: auto;             /* 🔹 let posts define full layout height */
 }
+
+
+.post {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 60%;             /* Adjust width for your layout */
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map-posts-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;     /* 🔹 both map and posts match height */
+    gap: 20px;
+    padding: 20px;
+    height: auto;             /* 🔹 grows based on tallest child */
+}
+
+
 
 .location-form {
     max-width: 600px; /* Limit the width of the location form */
@@ -179,3 +205,57 @@ h4 {
     margin-top: 20px; /* Space above the image */
     border-radius: 8px; /* Rounded corners */
 }
+
+#search-bar-container {
+    flex: 1.2;
+    max-width: 850px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;           /* ✅ allow it to grow naturally */
+}
+
+/* Popup overlay */
+.popup-overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* On top of everything */
+}
+
+/* Popup box */
+.popup-box {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: popup-fade 0.3s ease;
+}
+
+/* Close (X) button */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 28px;
+  color: #333;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Animation for smooth entry */
+@keyframes popup-fade {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+
+
