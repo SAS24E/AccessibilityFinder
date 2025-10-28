@@ -11,7 +11,8 @@ CREATE TABLE users (
     nick_name VARCHAR(50) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    biography TEXT
 );
 
 CREATE TABLE locations (

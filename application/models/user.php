@@ -40,4 +40,13 @@ class User {
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+    // Updates the biography field in the db for a user
+    public function editBio($id, $biography){
+        $stmt = $this->conn->prepare("UPDATE {$this->table} SET biography = :biography WHERE id = :id");
+        return $stmt->execute([
+            ':biography' => $biography,
+            ':id' => $id
+        ]);
+    }
 }
