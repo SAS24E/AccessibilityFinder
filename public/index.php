@@ -127,9 +127,5 @@ $posts = $controller->index();
     }
   };
 </script>
-
-
- 
 </body>
-
 </html>

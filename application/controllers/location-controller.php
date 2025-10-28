@@ -15,10 +15,10 @@ class LocationController {
     public function getLocationById($id) {
         return $this->locationModel->getLocationById($id);
     }
+
+    // Method to create a new location
     public function createLocation() {
         // read JSON body (locations api), validate, call model, return JSON
-
-        //read raw JSON body 
 
             // Accept either JSON body (API clients) or regular form POST (browser form)
             $raw = file_get_contents("php://input");
@@ -96,7 +96,6 @@ class LocationController {
 }
 
 // simple routing logic
-// Simple routing based on 'action' parameter this is how we call the functions in this controller
 if (isset($_GET['action'])) {
     $controller = new LocationController();
     if ($_GET['action'] === 'createLocation') {
