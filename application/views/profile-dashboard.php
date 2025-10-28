@@ -27,10 +27,43 @@
             <p> More profile features soon to come!</p>
             <!-- Add other fields as needed -->
         </div>
+        <div class = "bio-section">
+            <!-- The displaying biography -->
+            <div class = "bio-display" id="bioDisplay">
+                <p><strong>Biography:</strong></p>
+                <p><?php echo htmlspecialchars($user->biography ?? ''); ?></p>
+                <button type="button" onclick="toggleBioEdit()">Edit Bio</button>
+            </div>
+
+        <!-- Edit mode (hidden by default) -->
+        <div class="bio-edit" id="bioEdit" style="display: none;">
+            <form method="POST" action="../controllers/user-controller.php?action=updateBio">
+                <p><strong>Edit Bio:</strong></p>
+                <textarea name="biography" rows="5" cols="50" maxlength="500"><?php echo htmlspecialchars($user->biography ?? ''); ?></textarea>
+                <br>
+                <button type="submit">Save Changes</button>
+                <button type="button" onclick="toggleBioEdit()">Cancel</button>
+            </form>
+        </div>
+        </div>
     </main>
 
     <footer class="site-footer">
         <p>&copy; 2025 AccessibilityFinder | Bit by Bit Team</p>
     </footer>
+<script>
+    function toggleBioEdit() {
+        const displayDiv = document.getElementById('bioDisplay');
+        const editDiv = document.getElementById('bioEdit');
+        
+        if (displayDiv.style.display === 'none') {
+            displayDiv.style.display = 'block';
+            editDiv.style.display = 'none';
+        } else {
+            displayDiv.style.display = 'none';
+            editDiv.style.display = 'block';
+        }
+    }
+</script>
 </body>
 </html>

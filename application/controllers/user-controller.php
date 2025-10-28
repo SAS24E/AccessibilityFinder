@@ -107,6 +107,28 @@ class UserController {
         $user = $userData;
         require_once __DIR__ . '/../views/profile-dashboard.php';
     }
+
+    // Update biography for logged-in users
+    public function updateBio(){
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: ../../public/index.php");
+            exit;
+        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $biography = trim($_POST['biography'] ?? '');
+            $userId = $_SESSION['user_id'];
+
+            // Update the biography in the database
+            if ($this->user->editBio($userId, $biography)) {
+                header("Location: ../controllers/user-controller.php?action=profile");
+
+                exit;
+            // If update fails, show an error message
+            } else {
+                echo "<p style='color:red;'>Failed to update biography. Please try again.</p>";
+            }
+        }
+    }
 }
 
 // Simple routing based on 'action' parameter this is how we call the functions in this controller
@@ -120,5 +142,7 @@ if (isset($_GET['action'])) {
         $controller->profile();
     } elseif ($_GET['action'] === 'logout') {
         $controller->logout();
+    } elseif ($_GET['action'] === 'updateBio') {
+        $controller->updateBio();
     }
 }
