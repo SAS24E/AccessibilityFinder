@@ -8,42 +8,24 @@ class LocationModel {
         $this->conn = $db;
     }
 
-    public function getAllLocations() {
-        $sql = "SELECT * FROM locations ORDER BY name ASC";
+    // add location to database from nominatim search result
+    public function createLocationBySearch($data) {
+        $sql = "INSERT INTO locations (name, address, latitude, longitude, nominatim_place_id, osm_type, osm_id) 
+                VALUES (:name, :address, :latitude, :longitude, :nominatim_place_id, :osm_type, :osm_id)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $ok = $stmt->execute([
+            ':name' => $data['name'],
+            ':address' => $data['address'] ?? null,
+            ':latitude' => $data['latitude'],
+            ':longitude' => $data['longitude'],
+            ':nominatim_place_id' => $data['nominatim_place_id'] ?? null,
+            ':osm_type' => $data['osm_type'] ?? null,
+            ':osm_id' => $data['osm_id'] ?? null
+        ]);
+        if ($ok) return (int)$this->conn->lastInsertId();
+        return false;
     }
 
-    // Create a new location and return its ID
-    public function createLocation($data){
-        // Insert new location using prepared statement
-        $sql = "INSERT INTO locations (name, address, latitude, longitude) VALUES (:name, :address, :latitude, :longitude)";
-        $stmt = $this->conn->prepare($sql);
-
-        $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
-        $stmt->bindValue(':address', $data['address'] ?? null, PDO::PARAM_STR);
-        $stmt->bindValue(':latitude', $data['latitude'] ?? null, PDO::PARAM_STR);
-        $stmt->bindValue(':longitude', $data['longitude'] ?? null, PDO::PARAM_STR);
-        if($stmt->execute()){
-            return $this->conn->lastInsertId(); // return new location ID
-        } else {
-            return false; // insertion failed
-        }
-    }
-
-    // Get location by ID
-    public function getLocationById($id){
-        // Fetch location by ID using prepared statement
-        $sql = "SELECT * FROM locations WHERE id = :id";
-        // prepare and execute statement
-        $stmt = $this->conn->prepare($sql);
-        // bind value and execute
-        $stmt->bindvalue(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        //return associative array
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
 
    // get location by name (partial match)
     public function findlocationsByName($query) {
@@ -59,7 +41,4 @@ class LocationModel {
         $stmt->bindValue(':q', '%' . $query . '%', PDO::PARAM_STR);
         return $stmt->execute();
     }
-
-    // Additional methods for updating and deleting locations can be added here
-
 }

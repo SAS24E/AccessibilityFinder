@@ -17,43 +17,25 @@
         </nav>
     </header>
     <div style = "flex-direction : row; justify-content : space-around; display: flex;">
-        <div class="location-form">
-            <h2>Create New Location</h2>
-            <form action="../controllers/location-controller.php?action=createLocation" method="POST">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required><br>
-                <br>
-                <label for="address">Address:</label>
-                <input type="text" id="address" name="address"><br>
-                <br>
-                <label for="latitude">Latitude:</label>
-                <input type="text" id="latitude" name="latitude"><br>
-                <br>
-                <label for="longitude">Longitude:</label>  
-                <input type="text" id="longitude" name="longitude"><br>
-                <br>
-                <button type="submit" value="createLocation">Create Location</button>
 
-            </form>
+        <div class="location-form">
+            <h2>Add New Location by Search</h2>
+            <input type="text" id="search-input-add" placeholder="Search for a location to add to db">
+            <button id="search-button-add">Search Location</button>
+            <div id="add-location-status"></div>
         </div>
 
         <div class="location-form">
             <h2>Search Locations</h2>
-            <input type="text" id="search-query" placeholder="Enter location name">
-            <button id="search-button">Search</button>
+            <input type="text" id="search-input-lookup" placeholder="Enter location name">
+            <button id="search-button-lookup">Search</button>
             <div id="search-results"></div>
         </div>
 
-        <div class="location-form">
-            <h2>Get Location by ID</h2>
-            <input type="text" id="location-id" placeholder="Enter location ID">
-            <button id="get-location-button">Get Location</button>
-            <div id="location-details"></div>
-        </div>
-
+        
         <div class="location-form">
             <h2>Delete Location</h2>
-            <input type="text" id="delete-location-id" placeholder="Enter location ID to delete">
+            <input type="text" id="delete-location-id" placeholder="Enter location to delete from db">
             <button id="delete-location-button">Delete Location</button>
             <div id="delete-status"></div>
         </div>

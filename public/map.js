@@ -42,7 +42,7 @@ async function init() {
       .addTo(map);
   }
 
-  // wire search UI if present
+  // wire search UI if present we will use search-input and search-button IDs to find them
   const input = document.getElementById('search-input');
   const btn = document.getElementById('search-button');
   if (btn && input) {
@@ -57,6 +57,7 @@ async function init() {
 }
 
 // Search using Nominatim and show result on the map
+// Nominatim usage policy: https://operations.osmfoundation.org/policies/nominatim/
 async function searchLocation(query) {
   if (!query || query.trim().length === 0) {
     alert('Please enter a search term');
@@ -76,7 +77,9 @@ async function searchLocation(query) {
       alert('Location not found');
       return null;
     }
-    const { lat, lon, display_name } = results[0];
+    // This is really for testing purposes
+    console.log('Search results:', results); 
+  const { lat, lon, display_name, place_id, osm_id, osm_type } = results[0];
     const lng = parseFloat(lon);
     const latitude = parseFloat(lat);
 
@@ -93,8 +96,15 @@ async function searchLocation(query) {
     const popup = new maplibregl.Popup().setHTML(`<strong>${display_name}</strong>`);
     searchMarker.setPopup(popup).togglePopup();
 
-    // expose last search result
-    window.lastSearchResult = { lat: latitude, lng, display_name };
+    // expose last search result (include nominatim/osm metadata)
+    window.lastSearchResult = {
+      lat: latitude,
+      lng,
+      display_name,
+      nominatim_place_id: place_id ?? null,
+      osm_id: osm_id ?? null,
+      osm_type: osm_type ?? null,
+    };
     return window.lastSearchResult;
   } catch (err) {
     console.error('Search failed', err);
@@ -105,6 +115,60 @@ async function searchLocation(query) {
 
 // expose to window for debugging/inline use
 window.searchLocation = searchLocation;
+
+// If the page includes the Add-by-Search UI elements, wire them here so
+// the logic lives inside map.js and not in multiple views.
+function wireAddBySearch() {
+  // Prefer new, de-duplicated IDs used in the dashboard view. Fall back to old IDs for compatibility.
+  const addBtn = document.getElementById('search-button-add') || document.getElementById('search-button');
+  const addInput = document.getElementById('search-input-add') || document.getElementById('search-input');
+  const status = document.getElementById('add-location-status');
+  if (!addBtn || !addInput || !status) return;
+
+  addBtn.addEventListener('click', async () => {
+    status.textContent = 'Searching...';
+    try {
+      const result = await searchLocation(addInput.value);
+      if (!result) {
+        status.textContent = 'No result found';
+        return;
+      }
+      status.textContent = 'Saving...';
+      const payload = {
+        name: result.display_name,
+        address: result.display_name,
+        latitude: result.lat,
+        longitude: result.lng,
+        nominatim_place_id: result.nominatim_place_id,
+        osm_type: result.osm_type,
+        osm_id: result.osm_id
+      };
+
+      // send to backend to save via the controller.
+      const res = await fetch('../controllers/location-controller.php?action=createLocation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+      if (res.ok) {
+        status.textContent = 'Saved (id ' + json.location_id + ')';
+      } else {
+        status.textContent = 'Save failed: ' + (json.error || json.message || res.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+      status.textContent = 'Error: ' + err.message;
+    }
+  });
+}
+
+// try to wire add-by-search when DOM ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', wireAddBySearch);
+} else {
+  wireAddBySearch();
+}
 
 // run init when DOM is ready
 if (document.readyState === 'loading') {

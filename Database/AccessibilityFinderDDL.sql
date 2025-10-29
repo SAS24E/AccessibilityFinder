@@ -21,6 +21,9 @@ CREATE TABLE locations (
     latitude DECIMAL(10, 7) NOT NULL,
     longitude DECIMAL(10, 7) NOT NULL,
     address VARCHAR(255),
+    nominatim_place_id VARCHAR(100),
+    osm_type VARCHAR(10),
+    osm_id BIGINT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
