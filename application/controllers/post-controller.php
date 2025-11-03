@@ -37,7 +37,7 @@ class PostController {
             header("Location: ../../public/index.php");
             exit;
         }
-
+        
         $userId = $_SESSION['user_id'];
         $location_id = intval($_POST['location_id'] ?? 0);
         $opinion = trim($_POST['opinion'] ?? '');

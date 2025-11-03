@@ -30,7 +30,7 @@ class PostModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
+    // Probaly won't need this but leaving here incase its in use!
     public function getLocationById($id) {
         $sql = "SELECT * FROM locations WHERE id = :id LIMIT 1";
         $stmt = $this->conn->prepare($sql);
