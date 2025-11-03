@@ -28,10 +28,10 @@ $posts = $controller->index();
     <header class="site-header">
         <h1>Accessiblity Finder</h1>
         <nav>
-            <a class="site-navigation-button" href="../application/views/guest-dashboard.php">Guest Dashboard</a>
-            <a class="site-navigation-button" href="../application/views/user-dashboard.php">User Dashboard</a>
             <a class="site-navigation-button" href="../application/views/about-us.php">About Us</a>
-            <a class="site-navigation-button" href="../application/views/location-dashboard.php">Location Management</a>
+            <a class="site-navigation-button" href="../application/views/profile-dashboard.php">Location Management</a>
+            <a class ="site-navigation-button" href="../application/views/manage-posts.php">Manage Post</a>
+            <a class ="site-navigation-button" href="../application/views/create-post-dashboard.php">Create Post</a>
         </nav>
     </header>
 
@@ -43,9 +43,6 @@ $posts = $controller->index();
             // Show welcome message, profile link, and logout button for logged-in users
       echo "<p class='logged-in-bubble'>Welcome " . htmlspecialchars($_SESSION['user_name']) . " !";
       echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=profile'>Profile</a> ";
-      // Add Create and Manage Posts links for logged-in users
-      echo "<a class='site-navigation-button' href='../application/controllers/post-controller.php?action=createForm'>Create Post</a> ";
-      echo "<a class='site-navigation-button' href='../application/controllers/post-controller.php?action=manage'>Manage Posts</a> ";
       echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=logout'>Logout</a></p>";
         } else {
             echo "<p style='text-align:right; margin-right:20px;'><a class='site-navigation-button' href='../application/views/login-dashboard.php'>Login</a> <a class='site-navigation-button' href='../application/views/register-dashboard.php'>Register</a></p>";

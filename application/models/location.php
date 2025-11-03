@@ -26,14 +26,6 @@ class LocationModel {
         return false;
     }
 
-
-   // get location by name (partial match)
-    public function findlocationsByName($query) {
-        $sql = "SELECT * FROM locations WHERE name LIKE :q";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':q' => '%' . $query . '%']);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
    // delete location by name
     public function deleteLocationByName($query) {
         $sql = "DELETE FROM locations WHERE name LIKE :q";

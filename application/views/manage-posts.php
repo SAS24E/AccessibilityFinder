@@ -1,5 +1,10 @@
 <?php
 // expects $posts array from controller
+
+/*
+# This page will likely be destoryed and its functionality merged into the main index.php page
+- Reason: we want to simplify the program. 
+*/
 ?>
 <!DOCTYPE html>
 <html lang="en">

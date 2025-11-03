@@ -1,4 +1,9 @@
 <?php
+/*
+# This page will likely be destoryed and its functionality merged into the main index.php page
+- Reason: we want to simplify the program. 
+*/
+
 // expects $locations from controller
 ?>
 <!DOCTYPE html>
