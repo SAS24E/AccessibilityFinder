@@ -3,6 +3,7 @@ session_start();
 
 require_once __DIR__ . '/../models/user.php';
 require_once __DIR__ . '/../../database/database.php';
+require_once __DIR__ . '/../models/post.php';
 
 class UserController {
     private $user;
@@ -105,6 +106,9 @@ class UserController {
 
         // Make $user available to the view
         $user = $userData;
+        // Load posts for this user so the profile only shows their posts
+        $postModel = new PostModel((new Database())->connect());
+        $posts = $postModel->getPostsByUser($userId);
         require_once __DIR__ . '/../views/profile-dashboard.php';
     }
 

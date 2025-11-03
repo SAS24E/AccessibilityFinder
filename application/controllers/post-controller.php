@@ -136,6 +136,9 @@ if (isset($_GET['action'])) {
         $controller->manage();
     } elseif ($action === 'delete') {
         $controller->delete();
+    } elseif ($action === 'getuserpost') {
+        $userId = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
+        $controller->getUserPosts($userId);
     }
 }
 

@@ -251,11 +251,19 @@ h4 {
   font-weight: bold;
 }
 
+.profile-posts-container
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
 /* Animation for smooth entry */
 @keyframes popup-fade {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-
 
 

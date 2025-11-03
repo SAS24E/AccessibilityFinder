@@ -40,7 +40,28 @@
         <button type="submit">Upload</button>
     </form>
             <!-- Add other fields as needed -->
-        </div>
+<!-- we're going to display user posts here -->
+<!-- This needs to be styled better Feel free to pick that up i like it in the middle but feel free to style it. -->
+        <div class="profile-posts-container">
+            <h3>Your Posts</h3>
+                    <div class ="profile-posts-container">
+           <?php if (!empty($posts)): ?>
+        <?php foreach ($posts as $post): ?>
+            <div class="post">
+                <h2><?= htmlspecialchars($post['location_name']); ?></h2>
+                <p><strong>Posted by:</strong> <?= htmlspecialchars($post['username']); ?></p>
+                <p><?= nl2br(htmlspecialchars($post['opinion'])); ?></p>
+                <p><strong>Assistance Friendly:</strong> <?= htmlspecialchars($post['assistance_friendly']); ?></p>
+                <?php if (!empty($post['image'])): ?>
+                    <img src="uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image" width="200">
+                <?php endif; ?>
+                <p><em>Posted on <?= htmlspecialchars($post['created_at']); ?></em></p>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>You haven't made any posts yet.</p>
+    <?php endif; ?>
+
         <div class = "bio-section">
             <!-- The displaying biography -->
             <div class = "bio-display" id="bioDisplay">

@@ -17,7 +17,12 @@ class PostModel {
     }
 
     public function getPostsByUser($userId) {
-        $sql = "SELECT posts.* FROM posts WHERE posts.user_id = :user_id ORDER BY posts.created_at DESC";
+        // Include the poster's name as 'username' so views can display it consistently
+        $sql = "SELECT posts.*, users.name AS username
+                FROM posts
+                JOIN users ON posts.user_id = users.id
+                WHERE posts.user_id = :user_id
+                ORDER BY posts.created_at DESC";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
         $stmt->execute();
