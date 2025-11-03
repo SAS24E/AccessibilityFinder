@@ -30,7 +30,6 @@ $posts = $controller->index();
         <nav>
             <a class="site-navigation-button" href="../application/views/about-us.php">About Us</a>
             <a class="site-navigation-button" href="../application/views/location-dashboard.php">Location Management</a>
-            <a class ="site-navigation-button" href="../application/views/manage-posts.php">Manage Post</a>
             <a class ="site-navigation-button" href="../application/controllers/post-controller.php?action=createForm">Create Post</a>
         </nav>
     </header>
