@@ -8,6 +8,22 @@ class LocationModel {
         $this->conn = $db;
     }
 
+    // General-purpose createLocation used by simple form and JSON API
+    public function createLocation($data) {
+        $sql = "INSERT INTO locations (name, address, latitude, longitude) VALUES (:name, :address, :latitude, :longitude)";
+        $stmt = $this->conn->prepare($sql);
+        $latitude = isset($data['latitude']) && is_numeric($data['latitude']) ? $data['latitude'] : 0.0;
+        $longitude = isset($data['longitude']) && is_numeric($data['longitude']) ? $data['longitude'] : 0.0;
+        $ok = $stmt->execute([
+            ':name' => $data['name'],
+            ':address' => $data['address'] ?? null,
+            ':latitude' => $latitude,
+            ':longitude' => $longitude
+        ]);
+        if ($ok) return (int)$this->conn->lastInsertId();
+        return false;
+    }
+
     // add location to database from nominatim search result
     public function createLocationBySearch($data) {
         $sql = "INSERT INTO locations (name, address, latitude, longitude, nominatim_place_id, osm_type, osm_id) 
