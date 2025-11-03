@@ -49,4 +49,13 @@ class User {
             ':id' => $id
         ]);
     }
+    
+    // Updates the profile_image field in the db for a user w/ filepath
+    public function updateProfileImage($id, $imagePath) {
+    $stmt = $this->conn->prepare("UPDATE {$this->table} SET profile_image = :image WHERE id = :id");
+    return $stmt->execute([
+        ':image' => $imagePath,
+        ':id' => $id
+    ]);
+}
 }

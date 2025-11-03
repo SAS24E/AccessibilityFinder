@@ -129,6 +129,43 @@ class UserController {
             }
         }
     }
+    public function uploadProfileImage() {
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../../public/index.php");
+        exit;
+    }
+    // Make sure the form was submitted and a file was uploaded
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_image'])) {
+        $userId = $_SESSION['user_id'];
+        $file = $_FILES['profile_image'];
+
+        $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+        if (in_array($ext, $allowed) && $file['error'] === 0) {
+            $newName = 'user_' . $userId . '_' . time() . '.' . $ext;
+            $destination = __DIR__ . '/../../public/uploads/profile-pictures/' . $newName;
+
+            if (move_uploaded_file($file['tmp_name'], $destination)) {
+                $this->user->updateProfileImage($userId, $newName);
+                header("Location: ../controllers/user-controller.php?action=profile");
+                exit;
+            } 
+            else 
+            {
+                $_SESSION['upload_error'] = "Failed to upload file. Check permissions/ correct folders";
+            }
+        } 
+        else 
+        {
+            $_SESSION['upload_error'] = "Invalid file type. Please upload a JPG, PNG, or GIF.";
+        }
+
+        // Always redirect back to profile page
+        header("Location: ../controllers/user-controller.php?action=profile");
+        exit;
+    }
+}
 }
 
 // Simple routing based on 'action' parameter this is how we call the functions in this controller
@@ -144,5 +181,7 @@ if (isset($_GET['action'])) {
         $controller->logout();
     } elseif ($_GET['action'] === 'updateBio') {
         $controller->updateBio();
+    } elseif ($_GET['action'] === 'uploadProfileImage') {
+    $controller->uploadProfileImage();
     }
 }

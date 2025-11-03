@@ -17,14 +17,28 @@
     </header>
 
     <main>
+    <!-- Display error message for incorrect file types -->
+        <?php if (isset($_SESSION['upload_error'])): ?>
+    <div style="color: red; margin-bottom: 10px;">
+        <?= htmlspecialchars($_SESSION['upload_error']); ?>
+    </div>
+    <?php unset($_SESSION['upload_error']); ?>
+        <?php endif; ?>
+
         <!-- Welcome message for the user-->
         <h2>Your Profile</h2>
         <p class="text-box">Welcome to your profile page! Here you can view and manage your account details.</p>
-        <!-- Display user information -->
-        <div class="profile-card">
-            <p><strong>Username:</strong> <?php echo htmlspecialchars($user->name ?? ''); ?></p>
-            <p><strong>Email:</strong> <?php echo htmlspecialchars($user->email ?? ''); ?></p>
-            <p> More profile features soon to come!</p>
+
+        <!-- Display user profile picture/ default picture if none uploaded -->
+         <img src="../../public/uploads/profile-pictures/<?php echo htmlspecialchars($user->profile_image ?? 'default.png'); ?>" 
+     alt="Profile Picture" width="150" height="150" style="border-radius:50%;">
+
+    <!-- Form to upload profile picture -->
+    <form action="../controllers/user-controller.php?action=uploadProfileImage" 
+        method="POST" enctype="multipart/form-data">
+        <input type="file" name="profile_image" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
             <!-- Add other fields as needed -->
         </div>
         <div class = "bio-section">
@@ -43,8 +57,12 @@
                 <br>
                 <button type="submit">Save Changes</button>
                 <button type="button" onclick="toggleBioEdit()">Cancel</button>
-            </form>
+        </form>
         </div>
+        <div class="profile-card">
+            <p><strong>Username:</strong> <?php echo htmlspecialchars($user->name ?? ''); ?></p>
+            <p><strong>Email:</strong> <?php echo htmlspecialchars($user->email ?? ''); ?></p>
+            <p> More profile features soon to come!</p>
         </div>
     </main>
 

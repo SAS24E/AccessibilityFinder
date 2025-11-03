@@ -12,7 +12,8 @@ CREATE TABLE users (
     email VARCHAR(150) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    biography TEXT
+    biography TEXT,
+    profile_image VARCHAR(255) DEFAULT 'default.png'
 );
 
 CREATE TABLE locations (
