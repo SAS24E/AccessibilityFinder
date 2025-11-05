@@ -10,12 +10,13 @@ class User {
     public function register($data){
         // Prepare and execute the SQL statement to insert a new user
         $stmt = $this->conn->prepare(
-            "INSERT INTO {$this->table} (name, email, password) 
-             VALUES (:name, :email, :password)"
+            "INSERT INTO {$this->table} (name, nick_name, email, password) 
+             VALUES (:name, :nick_name, :email, :password)"
         );
         // Bind parameters and hash the password before storing it
         return $stmt->execute([
             ':name' => $data['name'],
+            ':nick_name' => $data['nick_name'] ?? $data['name'], // Use name as nickname if not provided
             ':email' => $data['email'],
             ':password' => password_hash($data['password'], PASSWORD_BCRYPT)
         ]);

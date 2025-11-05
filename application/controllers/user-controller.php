@@ -2,7 +2,7 @@
 session_start();
 
 require_once __DIR__ . '/../models/user.php';
-require_once __DIR__ . '/../../database/database.php';
+require_once __DIR__ . '/../../Database/database.php';
 require_once __DIR__ . '/../models/post.php';
 
 class UserController {
@@ -29,16 +29,13 @@ class UserController {
             ];
             // Attempt to register the user
             if ($this->user->register($data)) {
-                header("Location: ../../public/index.php?registered=1");
-                
-                // If user registered successfully, redirect to home page and have them logged in.
+                // If user registered successfully, log them in and redirect to home page
                 $loggedInUser = $this->user->login($data['email'], $data['password']);
                 if ($loggedInUser) {
                     $_SESSION['user_id'] = $loggedInUser->id;
                     $_SESSION['user_name'] = $loggedInUser->name;
                 }
-                header("Location: ../../public/index.php");
-
+                header("Location: ../../public/index.php?registered=1");
                 exit;
             } else {
                 echo "<p style='color:red;'>Registration failed. Please try again.</p>";
@@ -186,6 +183,6 @@ if (isset($_GET['action'])) {
     } elseif ($_GET['action'] === 'updateBio') {
         $controller->updateBio();
     } elseif ($_GET['action'] === 'uploadProfileImage') {
-    $controller->uploadProfileImage();
+        $controller->uploadProfileImage();
     }
 }
