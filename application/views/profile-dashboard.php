@@ -1,3 +1,5 @@
+<?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,14 +55,36 @@
                 <p><?= nl2br(htmlspecialchars($post['opinion'])); ?></p>
                 <p><strong>Assistance Friendly:</strong> <?= htmlspecialchars($post['assistance_friendly']); ?></p>
                 <?php if (!empty($post['image'])): ?>
-                    <img src="uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image" width="200">
+                    <img src="../../public/uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image" width="200">
                 <?php endif; ?>
+
+                <?php if (isset($_SESSION['user_id']) && isset($post['user_id']) && $post['user_id'] == $_SESSION['user_id']): ?>
+                    <a class="small-button"
+                        href="../controllers/post-controller.php?action=editForm&id=<?= htmlspecialchars($post['id']); ?>">
+                        Edit
+                    </a>
+
+                    <form action="../controllers/post-controller.php?action=delete"
+                        method="POST"
+                        style="margin-top:6px;"
+                        onsubmit="return confirm('Delete this post?');">
+                        
+                        <input type="hidden" name="post_id" value="<?= htmlspecialchars($post['id']); ?>">
+                        <button type="submit" class="small-button">Delete</button>
+                    </form>
+                <?php endif; ?>
+
+
+
                 <p><em>Posted on <?= htmlspecialchars($post['created_at']); ?></em></p>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
         <p>You haven't made any posts yet.</p>
     <?php endif; ?>
+
+    </div>
+    </div>
 
         <div class = "bio-section">
             <!-- The displaying biography -->

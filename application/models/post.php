@@ -64,5 +64,47 @@ class PostModel {
         $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    // Fetch a single post by id (with username)
+    public function getPostById($id) {
+        $sql = "SELECT posts.*, users.name AS username
+                FROM posts
+                JOIN users ON posts.user_id = users.id
+                WHERE posts.id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Update a post that belongs to a given user
+    // $data can include: location_id, location_name, opinion, assistance_friendly, image
+    public function updatePost($postId, $userId, $data) {
+        $allowed = ['location_id','location_name','opinion','assistance_friendly','image'];
+        $sets = [];
+        $params = [':id' => $postId, ':user_id' => $userId];
+
+        foreach ($allowed as $col) {
+            if (array_key_exists($col, $data)) {
+                $sets[] = "$col = :$col";
+                $params[":$col"] = $data[$col];
+            }
+        }
+
+        if (empty($sets)) {
+            return false; // nothing to update
+        }
+
+        $sql = "UPDATE posts SET " . implode(', ', $sets) . " WHERE id = :id AND user_id = :user_id";
+        $stmt = $this->conn->prepare($sql);
+        foreach ($params as $k => $v) {
+            $type = PDO::PARAM_STR;
+            if (in_array($k, [':id', ':user_id', ':location_id'])) {
+                $type = PDO::PARAM_INT;
+            }
+            $stmt->bindValue($k, $v, $type);
+        }
+        return $stmt->execute();
+    }
 }
 
