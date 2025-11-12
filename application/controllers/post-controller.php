@@ -70,12 +70,12 @@ class PostController {
             'image' => $imageFileName
         ];
 
+        //Added logic to keep users in profile after creating a post 
         if ($this->model->createPost($data)) {
-            header("Location: ../../public/index.php?created=1");
+            header("Location: user-controller.php?action=profile&created=1");
             exit;
-        } else {
-            echo "<p style='color:red;'>Failed to create post. Please try again.</p>";
         }
+
     }
 
     // Show edit form for a post that belongs to the current user
@@ -190,7 +190,7 @@ public function update() {
         }
 
         if ($this->model->deletePost($postId, $userId)) {
-            header("Location: ../views/profile-dashboard.php?deleted=1");
+            header("Location: ../controllers/user-controller.php?action=profile&deleted=1");
             exit;
         } else {
             echo "<p style='color:red;'>Failed to delete post or permission denied.</p>";
