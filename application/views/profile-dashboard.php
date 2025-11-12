@@ -18,7 +18,9 @@
         </nav>
     </header>
 
-    <main>
+    <!-- made styling changes (styling was messed up after adding post form) -->
+    <main style="max-height:90vh; overflow-y:auto;">
+
     <!-- Display error message for incorrect file types -->
         <?php if (isset($_SESSION['upload_error'])): ?>
     <div style="color: red; margin-bottom: 10px;">
