@@ -19,8 +19,13 @@
                 <h2>Login to Your Account</h2>
                 <p class='text-box'>If you already have an account, please log in below. If you don't have an account yet, you can <a href="register-dashboard.php">register here</a>.</p>
             </div>
+            
             <!-- Login Form -->
             <div class="login-container">
+                <?php if (isset($_GET['error'])): ?>
+                <p style="color:red; text-align: center;">Invalid user credentials. Please try again.</p>
+                <?php endif; ?>
+
                 <form action="../controllers/user-controller.php?action=login" method="POST">
                     <!-- Username field added -->
                     <label for="username">Username:</label>
