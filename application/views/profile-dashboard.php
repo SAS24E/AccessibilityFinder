@@ -41,6 +41,49 @@
         <input type="file" name="profile_image" accept="image/*" required>
         <button type="submit">Upload</button>
     </form>
+
+                <!-- Form to "Create a Post -->
+                <!--  messed up current page styling  -->
+        <?php
+        if (!isset($locations) || !is_array($locations)) {
+            require_once __DIR__ . '/../models/post.php';
+            require_once __DIR__ . '/../../Database/database.php';
+            $db = (new Database())->connect();
+            $locations = (new PostModel($db))->getAllLocations();
+        }
+        ?>
+        <section class="create-post-inline">
+            <h3>Create a Post</h3>
+            <form method="post" action="../controllers/post-controller.php?action=create" enctype="multipart/form-data">
+                <label for="location_id">Location</label>
+                <select name="location_id" id="location_id" required>
+                    <option value="">-- Select a location --</option>
+                    <?php foreach ($locations as $loc): ?>
+                        <option value="<?= htmlspecialchars($loc['id']) ?>">
+                            <?= htmlspecialchars($loc['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+
+                <label for="opinion">Your opinion / review</label>
+                <textarea name="opinion" id="opinion" rows="6"></textarea>
+
+                <fieldset>
+                    <legend>Assistance Friendly?</legend>
+                    <label><input type="radio" name="assistance_friendly" value="yes"> Yes</label>
+                    <label><input type="radio" name="assistance_friendly" value="no" checked> No</label>
+                </fieldset>
+
+                <label for="image">Optional image</label>
+                <input type="file" name="image" id="image" accept="image/*">
+
+                <br>
+                <button type="submit">Create Post</button>
+            </form>
+        </section>
+        
+
+
             <!-- Add other fields as needed -->
 <!-- we're going to display user posts here -->
 <!-- This needs to be styled better Feel free to pick that up i like it in the middle but feel free to style it. -->

@@ -70,12 +70,12 @@ class PostController {
             'image' => $imageFileName
         ];
 
+        //Added logic to keep users in profile after creating a post 
         if ($this->model->createPost($data)) {
-            header("Location: ../../public/index.php?created=1");
+            header("Location: user-controller.php?action=profile&created=1");
             exit;
-        } else {
-            echo "<p style='color:red;'>Failed to create post. Please try again.</p>";
         }
+
     }
 
     // Show edit form for a post that belongs to the current user
