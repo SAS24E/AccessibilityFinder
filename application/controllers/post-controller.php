@@ -190,7 +190,7 @@ public function update() {
         }
 
         if ($this->model->deletePost($postId, $userId)) {
-            header("Location: ../views/profile-dashboard.php?deleted=1");
+            header("Location: ../controllers/user-controller.php?action=profile&deleted=1");
             exit;
         } else {
             echo "<p style='color:red;'>Failed to delete post or permission denied.</p>";
