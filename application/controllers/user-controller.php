@@ -63,9 +63,9 @@ class UserController {
                 $_SESSION['user_name'] = $loggedInUser->name;
                 header("Location: ../../public/index.php");
                 exit;
-            // If login fails, show an error message
+            // If login fails, redirect back to login with error
             } else {
-                echo "<p style='color:red;'>Invalid email or password.</p>";
+                header("Location: ../views/login-dashboard.php?error=1");
             }
         }
     }
