@@ -13,35 +13,41 @@ class UserController {
         $conn = $db->connect();
         $this->user = new User($conn);
     }
-// Handle registration form submission
-    public function register(){
-        //if user is already logged in, redirect to dashboard
-        if (isset($_SESSION['user_id'])) {
-            header("Location: ../../public/index.php");
+public function register(){
+    //if user is already logged in, redirect to dashboard
+    if (isset($_SESSION['user_id'])) {
+        header("Location: ../../public/index.php");
+        exit;
+    }
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = [
+            'name' => trim($_POST['username'] ?? ''),
+            'email' => trim($_POST['email'] ?? ''),
+            'password' => trim($_POST['password'] ?? '')
+        ];
+        
+        // Attempt to register the user
+        $result = $this->user->register($data);
+        
+        if ($result['success']) {
+            // If user registered successfully, log them in and redirect to home page
+            $loggedInUser = $this->user->login($data['email'], $data['password']);
+            if ($loggedInUser) {
+                $_SESSION['user_id'] = $loggedInUser->id;
+                $_SESSION['user_name'] = $loggedInUser->name;
+            }
+            header("Location: ../../public/index.php?registered=1");
+            exit;
+        } else {
+            // Redirect back to registration page with specific errors
+            $errors = $result['errors'] ?? ['registration_failed'];
+            $errorString = implode(',', $errors);
+            header("Location: ../views/register-dashboard.php?error=" . $errorString);
             exit;
         }
-        // Check if the form is submitted
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'name' => trim($_POST['username'] ?? ''),
-                'email' => trim($_POST['email'] ?? ''),
-                'password' => trim($_POST['password'] ?? '')
-            ];
-            // Attempt to register the user
-            if ($this->user->register($data)) {
-                // If user registered successfully, log them in and redirect to home page
-                $loggedInUser = $this->user->login($data['email'], $data['password']);
-                if ($loggedInUser) {
-                    $_SESSION['user_id'] = $loggedInUser->id;
-                    $_SESSION['user_name'] = $loggedInUser->name;
-                }
-                header("Location: ../../public/index.php?registered=1");
-                exit;
-            } else {
-                echo "<p style='color:red;'>Registration failed. Please try again.</p>";
-            }
-        }
     }
+}
 
 // Handle login form submission
     public function login(){

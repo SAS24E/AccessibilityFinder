@@ -7,20 +7,59 @@ class User {
         $this->conn = $db;
     }
 
+       // Check if email already exists
+    public function emailExists($email)
+    {
+        $stmt = $this->conn->prepare("SELECT id FROM {$this->table} WHERE email = :email LIMIT 1");
+        $stmt->execute([':email' => $email]);
+        return $stmt->fetch(PDO::FETCH_OBJ) !== false;
+    }
+
+    // Check if username already exists
+    public function usernameExists($username)
+    {
+        $stmt = $this->conn->prepare("SELECT id FROM {$this->table} WHERE name = :name LIMIT 1");
+        $stmt->execute([':name' => $username]);
+        return $stmt->fetch(PDO::FETCH_OBJ) !== false;
+    }
+
     public function register($data){
-        // Prepare and execute the SQL statement to insert a new user
+    $errors = [];
+    
+    // Check if username already exists
+    if ($this->usernameExists($data['name'])) {
+        $errors[] = 'username_exists';
+    }
+    
+    // Check if email already exists
+    if ($this->emailExists($data['email'])) {
+        $errors[] = 'email_exists';
+    }
+    
+    // If there are any errors, return them
+    if (!empty($errors)) {
+        return ['success' => false, 'errors' => $errors];
+    }
+    
+    // Prepare and execute the SQL statement to insert a new user
+    try {
         $stmt = $this->conn->prepare(
             "INSERT INTO {$this->table} (name, nick_name, email, password) 
              VALUES (:name, :nick_name, :email, :password)"
         );
         // Bind parameters and hash the password before storing it
-        return $stmt->execute([
+        $result = $stmt->execute([
             ':name' => $data['name'],
             ':nick_name' => $data['nick_name'] ?? $data['name'], // Use name as nickname if not provided
             ':email' => $data['email'],
             ':password' => password_hash($data['password'], PASSWORD_BCRYPT)
         ]);
+        return ['success' => $result];
+    } catch (PDOException $e) {
+        // Handle any other database errors
+        return ['success' => false, 'errors' => ['database_error']];
     }
+}
     
     // Handles the database query for logging in a user
     public function login($email, $password){
