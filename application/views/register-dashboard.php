@@ -19,6 +19,24 @@
                 <h2>Create Your Account</h2>
                 <p class='text-box'>Please fill in the details below to create your account. If you already have an account, you can <a href="login-dashboard.php">log in here</a>.</p>
             </div>
+            
+            <?php
+        // Display error messages if present
+        if (isset($_GET['error'])) {
+            $errors = explode(',', $_GET['error']);
+            
+            foreach ($errors as $error) {
+                if ($error === 'username_exists') {
+                    echo "<p style='color:red; text-align:center;'>This username is already taken. Please choose a different username.</p>";
+                } elseif ($error === 'email_exists') {
+                    echo "<p style='color:red; text-align:center;'>This email address is already registered. Please use a different email or <a href='login-dashboard.php'>log in</a>.</p>";
+                } elseif ($error === 'registration_failed' || $error === 'database_error') {
+                    echo "<p style='color:red; text-align:center;'>Registration failed. Please try again.</p>";
+                }
+            }
+        }
+        ?>
+            
             <!-- Registration Form -->
             <div class="login-container">
                 <form action="../controllers/user-controller.php?action=register" method="POST">
