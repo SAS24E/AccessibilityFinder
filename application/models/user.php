@@ -98,4 +98,36 @@ class User {
         ':id' => $id
     ]);
 }
+    // Return true if the given user id is an admin
+    public function isAdmin($userId) {
+        $stmt = $this->conn->prepare("SELECT is_admin FROM {$this->table} WHERE id = :id LIMIT 1");
+        $stmt->execute([':id' => $userId]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row && (int)$row['is_admin'] === 1;
+    }
+
+    // Get all users for the admin dashboard (no passwords)
+    public function getAllUsers() {
+        $sql = "SELECT id, name, email, created_at, biography, profile_image, is_admin, is_flagged
+                FROM {$this->table}
+                ORDER BY created_at DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Admin: delete a user by id
+    public function deleteUserById($id) {
+        $stmt = $this->conn->prepare("DELETE FROM {$this->table} WHERE id = :id");
+        return $stmt->execute([':id' => $id]);
+    }
+
+    // Admin: flag or unflag a user
+    public function setUserFlag($id, $flagValue) {
+        $stmt = $this->conn->prepare("UPDATE {$this->table} SET is_flagged = :flag WHERE id = :id");
+        return $stmt->execute([
+            ':flag' => (int)$flagValue,
+            ':id'   => (int)$id
+        ]);
+    }
 }

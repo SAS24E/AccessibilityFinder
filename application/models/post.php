@@ -106,5 +106,19 @@ class PostModel {
         }
         return $stmt->execute();
     }
+    // Admin: delete any post by id
+    public function deletePostById($id) {
+        $stmt = $this->conn->prepare("DELETE FROM posts WHERE id = :id");
+        return $stmt->execute([':id' => (int)$id]);
+    }
+
+    // Admin: flag or unflag a post
+    public function setPostFlag($id, $flagValue) {
+        $stmt = $this->conn->prepare("UPDATE posts SET is_flagged = :flag WHERE id = :id");
+        return $stmt->execute([
+            ':flag' => (int)$flagValue,
+            ':id'   => (int)$id
+        ]);
+    }
 }
 
