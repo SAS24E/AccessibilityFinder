@@ -14,6 +14,11 @@
         <nav>
             <!-- Link to the Home page (index.php) and link to perform a logout -->
             <a class="site-navigation-button" href="../../public/index.php">Home</a>
+            <?php
+            if (isset($_SESSION['user_id'])):
+            ?>
+                <a class="site-navigation-button" href="../controllers/admin-controller.php?action=index">Admin</a>
+            <?php endif; ?>
             <a class="site-navigation-button" href="../controllers/user-controller.php?action=logout">Logout</a>
         </nav>
     </header>
