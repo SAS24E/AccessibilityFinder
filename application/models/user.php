@@ -22,6 +22,13 @@ class User {
         $stmt->execute([':name' => $username]);
         return $stmt->fetch(PDO::FETCH_OBJ) !== false;
     }
+    // Check if nickname already exists
+    public function nicknameExists($nickname)
+    {
+        $stmt = $this->conn->prepare("SELECT id FROM {$this->table} WHERE nick_name = :nick_name LIMIT 1");
+        $stmt->execute([':nick_name' => $nickname]);
+        return $stmt->fetch(PDO::FETCH_OBJ) !== false;
+    }
 
     public function register($data){
     $errors = [];
@@ -29,6 +36,10 @@ class User {
     // Check if username already exists
     if ($this->usernameExists($data['name'])) {
         $errors[] = 'username_exists';
+    }
+
+    if ($this->nicknameExists($data['nick_name'])) {
+        $errors[] = 'nickname_exists';
     }
     
     // Check if email already exists

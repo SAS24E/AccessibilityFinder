@@ -24,6 +24,7 @@ public function register(){
         $data = [
             'name' => trim($_POST['username'] ?? ''),
             'email' => trim($_POST['email'] ?? ''),
+            'nick_name' => trim($_POST['nickname'] ?? ''),
             'password' => trim($_POST['password'] ?? '')
         ];
         
@@ -33,6 +34,7 @@ public function register(){
         if ($result['success']) {
             // If user registered successfully, log them in and redirect to home page
             $loggedInUser = $this->user->login($data['email'], $data['password']);
+            // if login is successful, set session variables and redirect to home page
             if ($loggedInUser) {
                 $_SESSION['user_id'] = $loggedInUser->id;
                 $_SESSION['user_name'] = $loggedInUser->name;
@@ -136,6 +138,7 @@ public function register(){
             }
         }
     }
+
     public function uploadProfileImage() {
     if (!isset($_SESSION['user_id'])) {
         header("Location: ../../public/index.php");

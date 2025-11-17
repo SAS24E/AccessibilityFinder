@@ -43,6 +43,9 @@
                     <!-- Username field added -->
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
+                    <!-- Nickname field added "not required"-->
+                    <label for="nickname">Nickname (optional):</label>
+                    <input type="text" id="nickname" name="nickname">
 
                     <!-- Email field added -->
                     <label for="email">Email:</label>
