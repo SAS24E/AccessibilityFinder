@@ -84,6 +84,11 @@ $posts = $controller->index();
           <?php if (!empty($posts)): ?>
             <?php foreach ($posts as $post): ?>
               <div class="post">
+                <?php if (!empty($post['is_flagged']) && (int)$post['is_flagged'] === 1): ?>
+                  <p class="flag-warning">
+                    This post has been flagged for review by an administrator.
+                  </p>
+                <?php endif; ?>
                 <h2><?= htmlspecialchars($post['location_name']); ?></h2>
                 <p><strong>Posted by:</strong> <?= htmlspecialchars($post['username']); ?></p>
                 <p><?= nl2br(htmlspecialchars($post['opinion'])); ?></p>
@@ -97,6 +102,7 @@ $posts = $controller->index();
           <?php else: ?>
             <p>No posts available yet.</p>
           <?php endif; ?>
+
         </div>
       </div>
 

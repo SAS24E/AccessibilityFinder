@@ -503,3 +503,12 @@ main > div:first-child:not(.map-posts-wrapper) a:hover {
     text-decoration: none;
 }
 
+.flag-warning {
+    background-color: rgba(241, 196, 15, 0.15);
+    border-left: 4px solid #f1c40f;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #f1c40f;
+}
