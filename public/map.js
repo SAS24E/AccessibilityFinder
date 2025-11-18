@@ -36,10 +36,15 @@ async function init() {
   if (location !== middleOfUSA) {
     map.flyTo({ center: location, zoom: 8 });
 
-    new maplibregl.Popup({ closeOnClick: false })
+    // Create a green marker for user location
+    const userMarker = new maplibregl.Marker({ color: '#22c55e' })
       .setLngLat(location)
-      .setHTML("<h3>You are around here!</h3>")
       .addTo(map);
+    
+    // Optional: Add popup that shows on click
+    const userPopup = new maplibregl.Popup({ offset: 25 })
+      .setHTML('<strong>📍 You are here</strong>');
+    userMarker.setPopup(userPopup);
   }
 
   // wire search UI if present we will use search-input and search-button IDs to find them
@@ -178,3 +183,4 @@ if (document.readyState === 'loading') {
 }
 
 export { searchLocation };
+

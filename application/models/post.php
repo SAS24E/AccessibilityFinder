@@ -1,12 +1,15 @@
 <?php
-class PostModel {
+class PostModel
+{
     private $conn;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-    public function getAllPosts() {
+    public function getAllPosts()
+    {
         $sql = "SELECT posts.*, users.name AS username 
                 FROM posts 
                 JOIN users ON posts.user_id = users.id 
@@ -16,7 +19,8 @@ class PostModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getPostsByUser($userId) {
+    public function getPostsByUser($userId)
+    {
         // Include the poster's name as 'username' so views can display it consistently
         $sql = "SELECT posts.*, users.name AS username
                 FROM posts
@@ -29,14 +33,33 @@ class PostModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAllLocations() {
+    /**
+     * Get a lightweight count of posts for a given user.
+     * This is more efficient than fetching all rows when only the total is needed.
+     *
+     * @param int $userId
+     * @return int
+     */
+    public function getPostCountByUser($userId)
+    {
+        $sql = "SELECT COUNT(*) AS cnt FROM posts WHERE user_id = :user_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int) ($row['cnt'] ?? 0);
+    }
+
+    public function getAllLocations()
+    {
         $sql = "SELECT id, name FROM locations ORDER BY name ASC";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     // Probaly won't need this but leaving here incase its in use!
-    public function getLocationById($id) {
+    public function getLocationById($id)
+    {
         $sql = "SELECT * FROM locations WHERE id = :id LIMIT 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -44,7 +67,8 @@ class PostModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function createPost($data) {
+    public function createPost($data)
+    {
         $sql = "INSERT INTO posts (location_id, location_name, user_id, opinion, assistance_friendly, image) VALUES (:location_id, :location_name, :user_id, :opinion, :assistance_friendly, :image)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(':location_id', $data['location_id'], PDO::PARAM_INT);
@@ -56,7 +80,8 @@ class PostModel {
         return $stmt->execute();
     }
 
-    public function deletePost($postId, $userId) {
+    public function deletePost($postId, $userId)
+    {
         // Only delete if the post belongs to the given user
         $sql = "DELETE FROM posts WHERE id = :id AND user_id = :user_id";
         $stmt = $this->conn->prepare($sql);
@@ -66,7 +91,8 @@ class PostModel {
     }
 
     // Fetch a single post by id (with username)
-    public function getPostById($id) {
+    public function getPostById($id)
+    {
         $sql = "SELECT posts.*, users.name AS username
                 FROM posts
                 JOIN users ON posts.user_id = users.id
@@ -79,8 +105,9 @@ class PostModel {
 
     // Update a post that belongs to a given user
     // $data can include: location_id, location_name, opinion, assistance_friendly, image
-    public function updatePost($postId, $userId, $data) {
-        $allowed = ['location_id','location_name','opinion','assistance_friendly','image'];
+    public function updatePost($postId, $userId, $data)
+    {
+        $allowed = ['location_id', 'location_name', 'opinion', 'assistance_friendly', 'image'];
         $sets = [];
         $params = [':id' => $postId, ':user_id' => $userId];
 
@@ -107,17 +134,19 @@ class PostModel {
         return $stmt->execute();
     }
     // Admin: delete any post by id
-    public function deletePostById($id) {
+    public function deletePostById($id)
+    {
         $stmt = $this->conn->prepare("DELETE FROM posts WHERE id = :id");
-        return $stmt->execute([':id' => (int)$id]);
+        return $stmt->execute([':id' => (int) $id]);
     }
 
     // Admin: flag or unflag a post
-    public function setPostFlag($id, $flagValue) {
+    public function setPostFlag($id, $flagValue)
+    {
         $stmt = $this->conn->prepare("UPDATE posts SET is_flagged = :flag WHERE id = :id");
         return $stmt->execute([
-            ':flag' => (int)$flagValue,
-            ':id'   => (int)$id
+            ':flag' => (int) $flagValue,
+            ':id' => (int) $id
         ]);
     }
 }
