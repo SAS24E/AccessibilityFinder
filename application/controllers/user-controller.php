@@ -41,6 +41,7 @@ class UserController
                 if ($loggedInUser) {
                     $_SESSION['user_id'] = $loggedInUser->id;
                     $_SESSION['user_name'] = $loggedInUser->name;
+                    $_SESSION['is_admin'] = $loggedInUser->is_admin;
                 }
                 header("Location: ../../public/index.php?registered=1");
                 exit;
@@ -73,6 +74,7 @@ class UserController
             if ($loggedInUser) {
                 $_SESSION['user_id'] = $loggedInUser->id;
                 $_SESSION['user_name'] = $loggedInUser->name;
+                $_SESSION['is_admin'] = $loggedInUser->is_admin;
                 header("Location: ../../public/index.php");
                 exit;
                 // If login fails, redirect back to login with error
