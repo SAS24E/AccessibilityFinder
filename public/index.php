@@ -69,13 +69,28 @@ $posts = $controller->index();
       <!-- Posts Section with Create Button -->
       <div class="posts-section">
         <!-- Create Post Trigger (Only for logged-in users) -->
-        <?php if (isset($_SESSION['user_id'])): ?>
-          <div class="text-center mb-3">
+        <div class="text-center mb-3 d-flex justify-content-center align-items-center" style="gap:10px; flex-wrap:wrap;">
+          <?php if (isset($_SESSION['user_id'])): ?>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createPostModal">
               + Create Post
             </button>
+          <?php endif; ?>
+
+          <!-- Filter toggle visible to everyone -->
+          <button id="toggleFilterBtn" type="button" class="btn btn-outline-secondary btn-lg">
+            🔎 Filter Posts
+          </button>
+        </div>
+
+        <!-- Filter input (hidden by default) -->
+        <div id="filterBar" class="mb-3" style="display:none;">
+          <div class="input-group">
+            <input id="postFilterInput" type="text" class="form-control" placeholder="Type to filter posts (location, author, text, assistance)...">
+            <div class="input-group-append">
+              <button id="clearFilterBtn" class="btn btn-outline-secondary" type="button">Clear</button>
+            </div>
           </div>
-        <?php endif; ?>
+        </div>
 
         <!-- =================== -->
         <!-- Display All Posts -->
@@ -83,7 +98,8 @@ $posts = $controller->index();
         <div class="posts-container">
           <?php if (!empty($posts)): ?>
             <?php foreach ($posts as $post): ?>
-              <div class="post">
+              <?php $searchAttr = strtolower(htmlspecialchars($post['location_name'] . ' ' . $post['username'] . ' ' . $post['opinion'] . ' ' . $post['assistance_friendly'])); ?>
+              <div class="post" data-search="<?= $searchAttr ?>">
                 <?php if (!empty($post['is_flagged']) && (int)$post['is_flagged'] === 1): ?>
                   <p class="flag-warning">
                     This post has been flagged for review by an administrator.
@@ -310,6 +326,52 @@ $posts = $controller->index();
       clearMarkers();
       modalMap && ($('modalMap').style.display = 'none');
     });
+  </script>
+
+  <!-- ===================================== -->
+  <!-- CLIENT-SIDE POST FILTERING -->
+  <!-- ===================================== -->
+  <script>
+    (function(){
+      const $ = id => document.getElementById(id);
+      const toggleBtn = $('toggleFilterBtn');
+      const filterBar = $('filterBar');
+      const filterInput = $('postFilterInput');
+      const clearBtn = $('clearFilterBtn');
+      const postsContainerSelector = '.posts-container .post';
+
+      function setFilterVisible(visible){
+        filterBar.style.display = visible ? 'block' : 'none';
+        if(visible){ filterInput.focus(); }
+        else { filterInput.value = ''; filterPosts(''); }
+      }
+
+      function filterPosts(term){
+        term = (term||'').trim().toLowerCase();
+        const posts = document.querySelectorAll(postsContainerSelector);
+        posts.forEach(p => {
+          const hay = (p.getAttribute('data-search') || '').toLowerCase();
+          if(!term || hay.indexOf(term) !== -1){
+            p.style.display = '';
+          } else {
+            p.style.display = 'none';
+          }
+        });
+      }
+
+      if(toggleBtn){
+        toggleBtn.addEventListener('click', () => setFilterVisible(filterBar.style.display === 'none'));
+      }
+      if(filterInput){
+        let debounce; filterInput.addEventListener('input', (e) => {
+          clearTimeout(debounce);
+          debounce = setTimeout(() => filterPosts(e.target.value), 150);
+        });
+      }
+      if(clearBtn){
+        clearBtn.addEventListener('click', () => { filterInput.value = ''; filterPosts(''); filterInput.focus(); });
+      }
+    })();
   </script>
 
   <!-- ===================================== -->
