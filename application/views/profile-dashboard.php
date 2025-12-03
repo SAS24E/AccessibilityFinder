@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/styles.css">
+    <link rel="stylesheet" href="../../styles.css">
     <title> <?= htmlspecialchars($user->name ?? 'User') ?>'s Profile</title>
 </head>
 
@@ -16,7 +16,7 @@
         <h1>Accessibility Finder</h1>
         <nav>
             <!-- Link to the Home page (index.php) and link to perform a logout -->
-            <a class="site-navigation-button" href="../../public/index.php">Home</a>
+            <a class="site-navigation-button" href="../../index.php">Home</a>
             <?php
             if (isset($_SESSION['user_id']) && isset($_SESSION['is_admin']) && $_SESSION['is_admin']):
                 ?>
@@ -41,7 +41,7 @@
         <div class="profile-page-container">
             <div class="profile-card">
                 <!-- Display user profile picture/ default picture if none uploaded -->
-                <img src="../../public/uploads/profile-pictures/<?php echo htmlspecialchars($user->profile_image ?? 'default.png'); ?>"
+                <img src="../../uploads/profile-pictures/<?php echo htmlspecialchars($user->profile_image ?? 'default.png'); ?>"
                     alt="Profile Picture" width="150" height="150" style="border-radius:50%;">
 
                 <!-- Form to upload profile picture -->
@@ -104,7 +104,7 @@
                                         <p><strong>Assistance Friendly:</strong> <?= htmlspecialchars($post['assistance_friendly']); ?>
                                         </p>
                                         <?php if (!empty($post['image'])): ?>
-                                                <img src="../../public/uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image"
+                                                <img src="../../uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image"
                                                     width="200">
                                         <?php endif; ?>
 

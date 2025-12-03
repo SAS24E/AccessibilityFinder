@@ -24,7 +24,7 @@ class AdminController
 
         // Only allow access if a logged in user is an admin
         if (!isset($_SESSION['user_id']) || !$this->userModel->isAdmin($_SESSION['user_id'])) {
-            header("Location: ../../public/index.php");
+            header("Location: ../../index.php");
             exit;
         }
     }

@@ -10,7 +10,6 @@ class LocationModel
         $this->conn = $db;
     }
 
-    // add location to database from nominatim search result
     public function createLocationBySearch($data)
     {
         $sql = "INSERT INTO locations (name, address, latitude, longitude, nominatim_place_id, osm_type, osm_id) 
@@ -30,7 +29,6 @@ class LocationModel
         return false;
     }
 
-    // delete location by name
     public function deleteLocationByName($query)
     {
         $sql = "DELETE FROM locations WHERE name LIKE :q";

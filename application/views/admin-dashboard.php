@@ -5,14 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/styles.css">
+    <link rel="stylesheet" href="../../styles.css">
     <title>Admin Dashboard</title>
 </head>
 <body>
     <header class="site-header">
         <h1>Accessibility Finder – Admin</h1>
         <nav>
-            <a class="site-navigation-button" href="../../public/index.php">Home</a>
+            <a class="site-navigation-button" href="../../index.php">Home</a>
             <a class="site-navigation-button" href="../controllers/user-controller.php?action=profile">Profile</a>
             <a class="site-navigation-button" href="../controllers/user-controller.php?action=logout">Logout</a>
         </nav>

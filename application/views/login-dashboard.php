@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/styles.css">
+    <link rel="stylesheet" href="../../styles.css">
     <title>Accessiblity Finder</title>
 </head>
 
@@ -12,7 +12,7 @@
     <header class="site-header">
         <h1>Accessiblity Finder</h1>
         <nav>
-            <a class="site-navigation-button" href="../../public/index.php">Home</a>
+            <a class="site-navigation-button" href="../../index.php">Home</a>
         </nav>
     </header>
 

@@ -33,13 +33,6 @@ class PostModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Get a lightweight count of posts for a given user.
-     * This is more efficient than fetching all rows when only the total is needed.
-     *
-     * @param int $userId
-     * @return int
-     */
     public function getPostCountByUser($userId)
     {
         $sql = "SELECT COUNT(*) AS cnt FROM posts WHERE user_id = :user_id";
@@ -90,7 +83,6 @@ class PostModel
         return $stmt->execute();
     }
 
-    // Fetch a single post by id (with username)
     public function getPostById($id)
     {
         $sql = "SELECT posts.*, users.name AS username
@@ -103,8 +95,6 @@ class PostModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Update a post that belongs to a given user
-    // $data can include: location_id, location_name, opinion, assistance_friendly, image
     public function updatePost($postId, $userId, $data)
     {
         $allowed = ['location_id', 'location_name', 'opinion', 'assistance_friendly', 'image'];
@@ -119,7 +109,7 @@ class PostModel
         }
 
         if (empty($sets)) {
-            return false; // nothing to update
+            return false;
         }
 
         $sql = "UPDATE posts SET " . implode(', ', $sets) . " WHERE id = :id AND user_id = :user_id";
@@ -133,14 +123,13 @@ class PostModel
         }
         return $stmt->execute();
     }
-    // Admin: delete any post by id
+
     public function deletePostById($id)
     {
         $stmt = $this->conn->prepare("DELETE FROM posts WHERE id = :id");
         return $stmt->execute([':id' => (int) $id]);
     }
 
-    // Admin: flag or unflag a post
     public function setPostFlag($id, $flagValue)
     {
         $stmt = $this->conn->prepare("UPDATE posts SET is_flagged = :flag WHERE id = :id");

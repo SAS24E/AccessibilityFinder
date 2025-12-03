@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../models/location.php';
 require_once __DIR__ . '/../../Database/database.php';
-// LocationController.php
+
 class LocationController
 {
     private $locationModel;
@@ -20,8 +20,6 @@ class LocationController
         $raw = file_get_contents("php://input");
         $data = json_decode($raw, true);
 
-        // Accept either the JS search result shape ({lat, lng, display_name})
-        // or a more explicit payload ({latitude, longitude, name, address}).
         $payload = [
             'name' => null,
             'address' => null,
@@ -33,7 +31,6 @@ class LocationController
         ];
 
         if (is_array($data)) {
-            // Nominatim client shape
             if (isset($data['lat']) && isset($data['lng'])) {
                 $payload['name'] = $data['display_name'] ?? ($data['name'] ?? null);
                 $payload['address'] = $data['display_name'] ?? ($data['address'] ?? null);
@@ -43,7 +40,6 @@ class LocationController
                 $payload['osm_type'] = $data['osm_type'] ?? null;
                 $payload['osm_id'] = $data['osm_id'] ?? null;
             } else {
-                // explicit shape
                 $payload['name'] = $data['name'] ?? null;
                 $payload['address'] = $data['address'] ?? null;
                 $payload['latitude'] = $data['latitude'] ?? null;
@@ -54,17 +50,15 @@ class LocationController
             }
         }
 
-        // Basic validation
         if (empty($payload['name']) || !isset($payload['latitude']) || !isset($payload['longitude'])) {
             http_response_code(400);
             echo json_encode(['error' => 'Invalid input - name, latitude and longitude are required']);
             return;
         }
 
-        // Call the model method that exists in LocationModel
         $locationId = $this->locationModel->createLocationBySearch($payload);
         if ($locationId) {
-            http_response_code(201); // Created
+            http_response_code(201);
             echo json_encode(['message' => 'Location created successfully', 'location_id' => (int) $locationId]);
         } else {
             http_response_code(500);
@@ -75,7 +69,6 @@ class LocationController
 
 }
 
-// simple routing logic
 if (isset($_GET['action'])) {
     $controller = new LocationController();
     if ($_GET['action'] === 'createLocation') {

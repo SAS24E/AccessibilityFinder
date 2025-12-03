@@ -2,16 +2,10 @@
 <html lang="en">
 
 <?php
-// ==========================
-// REQUIRE CONTROLLERS & DATABASE
-// ==========================
 session_start();
-require_once __DIR__ . '/../application/controllers/post-controller.php';
-require_once __DIR__ . '/../Database/database.php'; // 
+require_once __DIR__ . '/application/controllers/post-controller.php';
+require_once __DIR__ . '/Database/database.php'; 
 
-// ==========================
-// INIT DATABASE & CONTROLLER
-// ==========================
 $database = new Database();
 $db = $database->connect();
 $controller = new PostController($db);
@@ -25,10 +19,8 @@ $posts = $controller->index();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- MapLibre CSS -->
   <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
 
   <title>Accessibility Finder</title>
@@ -39,18 +31,15 @@ $posts = $controller->index();
     <div class="header-content">
       <h1>Accessibility Finder</h1>
       <nav class="header-nav">
-        <a class="site-navigation-button" href="../application/views/about-us.php">About Us</a>
+        <a class="site-navigation-button" href="application/views/about-us.php">About Us</a>
         <?php
-        // ==========================
-        // SESSION-BASED LOGIN CHECK IN HEADER
-        // ==========================
         if (isset($_SESSION['user_id'])) {
             echo "<span class='header-welcome'>Welcome " . htmlspecialchars($_SESSION['user_name']) . "!</span>";
-            echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=profile'>Profile</a>";
-            echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=logout'>Logout</a>";
+            echo "<a class='site-navigation-button' href='application/controllers/user-controller.php?action=profile'>Profile</a>";
+            echo "<a class='site-navigation-button' href='application/controllers/user-controller.php?action=logout'>Logout</a>";
         } else {
-            echo "<a class='site-navigation-button' href='../application/views/login-dashboard.php'>Login</a>";
-            echo "<a class='site-navigation-button' href='../application/views/register-dashboard.php'>Register</a>";
+            echo "<a class='site-navigation-button' href='application/views/login-dashboard.php'>Login</a>";
+            echo "<a class='site-navigation-button' href='application/views/register-dashboard.php'>Register</a>";
         }
         ?>
       </nav>
@@ -59,16 +48,13 @@ $posts = $controller->index();
 
   <main>
     <div class="map-posts-wrapper">
-      <!-- Map container: main map -->
       <div id="search-bar-container">
         <input type="text" id="search-input" placeholder="Search for accessible locations...">
         <button id="search-button">Search</button>
         <div id="map" class="map-container-home"></div>
       </div>
 
-      <!-- Posts Section with Create Button -->
       <div class="posts-section">
-        <!-- Create Post Trigger (Only for logged-in users) -->
         <div class="text-center mb-3 d-flex justify-content-center align-items-center" style="gap:10px; flex-wrap:wrap;">
           <?php if (isset($_SESSION['user_id'])): ?>
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createPostModal">
@@ -76,13 +62,11 @@ $posts = $controller->index();
                 </button>
           <?php endif; ?>
 
-          <!-- Filter toggle visible to everyone -->
           <button id="toggleFilterBtn" type="button" class="btn btn-outline-secondary btn-lg">
             🔎 Filter Posts
           </button>
         </div>
 
-        <!-- Filter input (hidden by default) -->
         <div id="filterBar" class="mb-3" style="display:none;">
           <div class="input-group">
             <input id="postFilterInput" type="text" class="form-control" placeholder="Type to filter posts (location, author, text, assistance)...">
@@ -92,9 +76,6 @@ $posts = $controller->index();
           </div>
         </div>
 
-        <!-- =================== -->
-        <!-- Display All Posts -->
-        <!-- =================== -->
         <div class="posts-container">
           <?php if (!empty($posts)): ?>
                 <?php foreach ($posts as $post): ?>
@@ -122,9 +103,6 @@ $posts = $controller->index();
         </div>
       </div>
 
-      <!-- ===================================== -->
-      <!-- Bootstrap Modal: Create New Post Form -->
-      <!-- ===================================== -->
       <?php if (isset($_SESSION['user_id'])): ?>
           <div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostTitle"
             aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -139,13 +117,9 @@ $posts = $controller->index();
                 </div>
 
                 <div class="modal-body">
-                  <!-- FORM: Create New Post -->
                   <form id="postForm" action="../application/controllers/post-controller.php?action=create" method="POST"
                     enctype="multipart/form-data">
 
-                    <!-- =================== -->
-                    <!-- Location Search via Nominatim -->
-                    <!-- =================== -->
                     <div class="form-group">
                       <label for="locationSearch">Location:</label>
                       <div class="input-group">
@@ -158,20 +132,13 @@ $posts = $controller->index();
                       <small class="form-text text-muted" id="locationStatus">Type and press Search to find locations</small>
                     </div>
 
-                    <!-- Search Results -->
                     <div id="searchResults" class="mb-3" style="max-height: 200px; overflow-y: auto;"></div>
 
-                    <!-- Map Container for Modal -->
                     <div id="modalMap" style="width: 100%; height: 400px; border-radius: 8px; margin-bottom: 20px; display: none;"></div>
 
-                    <!-- Hidden Fields -->
                     <input type="hidden" id="latitude" name="latitude" required>
                     <input type="hidden" id="longitude" name="longitude" required>
                     <input type="hidden" id="location_name" name="location_name" required>
-
-                    <!-- =================== -->
-                    <!-- Post Details -->
-                    <!-- =================== -->
                     <div class="form-group">
                       <label for="userOpinion">Your Opinion:</label>
                       <textarea class="form-control" id="userOpinion" name="opinion" rows="4" required></textarea>
@@ -212,19 +179,12 @@ $posts = $controller->index();
     <p>&copy; 2025 AccessibilityFinder | Bit by Bit Team</p>
   </footer>
 
-  <!-- ===================================== -->
-  <!-- JAVASCRIPT INCLUDES -->
-  <!-- ===================================== -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 
-  <!-- Main homepage map -->
   <script type="module" src="map.js"></script>
 
-  <!-- ===================================== -->
-  <!-- MODAL: LOCATION SEARCH & POST SUBMIT -->
-  <!-- ===================================== -->
   <script>
     let modalMap, modalMarkers = [], searchResults = [];
     const $ = (id) => document.getElementById(id);
@@ -328,9 +288,6 @@ $posts = $controller->index();
     });
   </script>
 
-  <!-- ===================================== -->
-  <!-- CLIENT-SIDE POST FILTERING -->
-  <!-- ===================================== -->
   <script>
     (function(){
       const $ = id => document.getElementById(id);
@@ -374,9 +331,6 @@ $posts = $controller->index();
     })();
   </script>
 
-  <!-- ===================================== -->
-  <!-- WELCOME POPUP -->
-  <!-- ===================================== -->
   <div id="welcomePopup" class="popup-overlay">
     <div class="popup-box">
       <span class="close-btn" id="closePopup">&times;</span>
@@ -394,9 +348,6 @@ $posts = $controller->index();
   </div>
 
   <script>
-    // ==============================
-    // WELCOME POPUP FUNCTIONALITY
-    // ==============================
     window.onload = function () {
       if (!localStorage.getItem('welcomeShown')) {
         document.getElementById("welcomePopup").style.display = "flex";
