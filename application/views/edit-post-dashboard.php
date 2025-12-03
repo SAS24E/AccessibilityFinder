@@ -23,7 +23,7 @@
     <div class="form-container">
       <h2>Edit Your Post</h2>
       <?php if (isset($_GET['error'])): ?>
-        <div class="message-box error">Update failed. Please try again.</div>
+            <div class="message-box error">Update failed. Please try again.</div>
       <?php endif; ?>
 
       <form action="../controllers/post-controller.php?action=update" method="POST" enctype="multipart/form-data">

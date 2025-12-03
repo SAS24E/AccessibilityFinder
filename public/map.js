@@ -82,8 +82,6 @@ async function searchLocation(query) {
       alert('Location not found');
       return null;
     }
-    // This is really for testing purposes
-    console.log('Search results:', results); 
   const { lat, lon, display_name, place_id, osm_id, osm_type } = results[0];
     const lng = parseFloat(lon);
     const latitude = parseFloat(lat);

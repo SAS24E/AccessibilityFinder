@@ -26,7 +26,7 @@
         <!-- Login Form -->
         <div class="form-container">
             <?php if (isset($_GET['error'])): ?>
-                <p style="color:red; text-align: center;">Invalid user credentials. Please try again.</p>
+                    <p style="color:red; text-align: center;">Invalid user credentials. Please try again.</p>
             <?php endif; ?>
 
             <form action="../controllers/user-controller.php?action=login" method="POST">

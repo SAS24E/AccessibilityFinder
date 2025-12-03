@@ -1,18 +1,21 @@
 <?php
 
 require_once __DIR__ . '/../models/location.php';
-require_once __DIR__ . '/../../database/database.php';
+require_once __DIR__ . '/../../Database/database.php';
 // LocationController.php
-class LocationController {
+class LocationController
+{
     private $locationModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $db = new Database();
         $conn = $db->connect();
         $this->locationModel = new LocationModel($conn);
     }
 
-    public function createLocationBySearch() {
+    public function createLocationBySearch()
+    {
         header('Content-Type: application/json');
         $raw = file_get_contents("php://input");
         $data = json_decode($raw, true);
@@ -62,7 +65,7 @@ class LocationController {
         $locationId = $this->locationModel->createLocationBySearch($payload);
         if ($locationId) {
             http_response_code(201); // Created
-            echo json_encode(['message' => 'Location created successfully', 'location_id' => (int)$locationId]);
+            echo json_encode(['message' => 'Location created successfully', 'location_id' => (int) $locationId]);
         } else {
             http_response_code(500);
             echo json_encode(['error' => 'Failed to create location']);
@@ -70,25 +73,6 @@ class LocationController {
 
     }
 
-    public function deleteLocationByName() {
-        $raw = file_get_contents("php://input");
-        $data = json_decode($raw, true);
-        // Basic validation if 'id' field is present and not empty
-        if (!isset($data['id']) || empty(trim($data['id']))) {
-            http_response_code(400);
-            echo json_encode(['error' => 'ID is required']);
-            return;
-        }
-        // Call model to delete location (assuming deleteLocation method exists)
-        $deleted = $this->locationModel->deleteLocationByName($data['id']);
-        if ($deleted) {
-            http_response_code(200); // OK
-            echo json_encode(['message' => 'Location deleted successfully']);
-        } else {
-            http_response_code(500);
-            echo json_encode(['error' => 'Failed to delete location']);
-        }
-    }
 }
 
 // simple routing logic
@@ -96,7 +80,5 @@ if (isset($_GET['action'])) {
     $controller = new LocationController();
     if ($_GET['action'] === 'createLocation') {
         $controller->createLocationBySearch();
-    } elseif ($_GET['action'] === 'deleteLocation') {
-        $controller->deleteLocationByName();
     }
 }

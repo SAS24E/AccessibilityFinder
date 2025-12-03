@@ -7,7 +7,7 @@
 // ==========================
 session_start();
 require_once __DIR__ . '/../application/controllers/post-controller.php';
-require_once __DIR__ . '/../database/database.php'; // 
+require_once __DIR__ . '/../Database/database.php'; // 
 
 // ==========================
 // INIT DATABASE & CONTROLLER
@@ -45,12 +45,12 @@ $posts = $controller->index();
         // SESSION-BASED LOGIN CHECK IN HEADER
         // ==========================
         if (isset($_SESSION['user_id'])) {
-          echo "<span class='header-welcome'>Welcome " . htmlspecialchars($_SESSION['user_name']) . "!</span>";
-          echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=profile'>Profile</a>";
-          echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=logout'>Logout</a>";
+            echo "<span class='header-welcome'>Welcome " . htmlspecialchars($_SESSION['user_name']) . "!</span>";
+            echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=profile'>Profile</a>";
+            echo "<a class='site-navigation-button' href='../application/controllers/user-controller.php?action=logout'>Logout</a>";
         } else {
-          echo "<a class='site-navigation-button' href='../application/views/login-dashboard.php'>Login</a>";
-          echo "<a class='site-navigation-button' href='../application/views/register-dashboard.php'>Register</a>";
+            echo "<a class='site-navigation-button' href='../application/views/login-dashboard.php'>Login</a>";
+            echo "<a class='site-navigation-button' href='../application/views/register-dashboard.php'>Register</a>";
         }
         ?>
       </nav>
@@ -71,9 +71,9 @@ $posts = $controller->index();
         <!-- Create Post Trigger (Only for logged-in users) -->
         <div class="text-center mb-3 d-flex justify-content-center align-items-center" style="gap:10px; flex-wrap:wrap;">
           <?php if (isset($_SESSION['user_id'])): ?>
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createPostModal">
-              + Create Post
-            </button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createPostModal">
+                  + Create Post
+                </button>
           <?php endif; ?>
 
           <!-- Filter toggle visible to everyone -->
@@ -97,26 +97,26 @@ $posts = $controller->index();
         <!-- =================== -->
         <div class="posts-container">
           <?php if (!empty($posts)): ?>
-            <?php foreach ($posts as $post): ?>
-              <?php $searchAttr = strtolower(htmlspecialchars($post['location_name'] . ' ' . $post['username'] . ' ' . $post['opinion'] . ' ' . $post['assistance_friendly'])); ?>
-              <div class="post" data-search="<?= $searchAttr ?>">
-                <?php if (!empty($post['is_flagged']) && (int)$post['is_flagged'] === 1): ?>
-                  <p class="flag-warning">
-                    This post has been flagged for review by an administrator.
-                  </p>
-                <?php endif; ?>
-                <h2><?= htmlspecialchars($post['location_name']); ?></h2>
-                <p><strong>Posted by:</strong> <?= htmlspecialchars($post['username']); ?></p>
-                <p><?= nl2br(htmlspecialchars($post['opinion'])); ?></p>
-                <p><strong>Assistance Friendly:</strong> <?= htmlspecialchars($post['assistance_friendly']); ?></p>
-                <?php if (!empty($post['image'])): ?>
-                  <img src="uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image" width="200">
-                <?php endif; ?>
-                <p><em>Posted on <?= htmlspecialchars($post['created_at']); ?></em></p>
-              </div>
-            <?php endforeach; ?>
+                <?php foreach ($posts as $post): ?>
+                      <?php $searchAttr = strtolower(htmlspecialchars($post['location_name'] . ' ' . $post['username'] . ' ' . $post['opinion'] . ' ' . $post['assistance_friendly'])); ?>
+                      <div class="post" data-search="<?= $searchAttr ?>">
+                        <?php if (!empty($post['is_flagged']) && (int) $post['is_flagged'] === 1): ?>
+                              <p class="flag-warning">
+                                This post has been flagged for review by an administrator.
+                              </p>
+                        <?php endif; ?>
+                        <h2><?= htmlspecialchars($post['location_name']); ?></h2>
+                        <p><strong>Posted by:</strong> <?= htmlspecialchars($post['username']); ?></p>
+                        <p><?= nl2br(htmlspecialchars($post['opinion'])); ?></p>
+                        <p><strong>Assistance Friendly:</strong> <?= htmlspecialchars($post['assistance_friendly']); ?></p>
+                        <?php if (!empty($post['image'])): ?>
+                              <img src="uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image" width="200">
+                        <?php endif; ?>
+                        <p><em>Posted on <?= htmlspecialchars($post['created_at']); ?></em></p>
+                      </div>
+                <?php endforeach; ?>
           <?php else: ?>
-            <p>No posts available yet.</p>
+                <p>No posts available yet.</p>
           <?php endif; ?>
 
         </div>
@@ -126,83 +126,83 @@ $posts = $controller->index();
       <!-- Bootstrap Modal: Create New Post Form -->
       <!-- ===================================== -->
       <?php if (isset($_SESSION['user_id'])): ?>
-      <div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostTitle"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-          <div class="modal-content">
+          <div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostTitle"
+            aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
 
-            <div class="modal-header">
-              <h5 class="modal-title" id="createPostTitle">Create a New Post</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+                <div class="modal-header">
+                  <h5 class="modal-title" id="createPostTitle">Create a New Post</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
 
-            <div class="modal-body">
-              <!-- FORM: Create New Post -->
-              <form id="postForm" action="../application/controllers/post-controller.php?action=create" method="POST"
-                enctype="multipart/form-data">
+                <div class="modal-body">
+                  <!-- FORM: Create New Post -->
+                  <form id="postForm" action="../application/controllers/post-controller.php?action=create" method="POST"
+                    enctype="multipart/form-data">
 
-                <!-- =================== -->
-                <!-- Location Search via Nominatim -->
-                <!-- =================== -->
-                <div class="form-group">
-                  <label for="locationSearch">Location:</label>
-                  <div class="input-group">
-                    <input type="text" id="locationSearch" class="form-control"
-                      placeholder="Search for a location..." required>
-                    <div class="input-group-append">
-                      <button type="button" id="searchLocationBtn" class="btn btn-primary">Search</button>
+                    <!-- =================== -->
+                    <!-- Location Search via Nominatim -->
+                    <!-- =================== -->
+                    <div class="form-group">
+                      <label for="locationSearch">Location:</label>
+                      <div class="input-group">
+                        <input type="text" id="locationSearch" class="form-control"
+                          placeholder="Search for a location..." required>
+                        <div class="input-group-append">
+                          <button type="button" id="searchLocationBtn" class="btn btn-primary">Search</button>
+                        </div>
+                      </div>
+                      <small class="form-text text-muted" id="locationStatus">Type and press Search to find locations</small>
                     </div>
-                  </div>
-                  <small class="form-text text-muted" id="locationStatus">Type and press Search to find locations</small>
+
+                    <!-- Search Results -->
+                    <div id="searchResults" class="mb-3" style="max-height: 200px; overflow-y: auto;"></div>
+
+                    <!-- Map Container for Modal -->
+                    <div id="modalMap" style="width: 100%; height: 400px; border-radius: 8px; margin-bottom: 20px; display: none;"></div>
+
+                    <!-- Hidden Fields -->
+                    <input type="hidden" id="latitude" name="latitude" required>
+                    <input type="hidden" id="longitude" name="longitude" required>
+                    <input type="hidden" id="location_name" name="location_name" required>
+
+                    <!-- =================== -->
+                    <!-- Post Details -->
+                    <!-- =================== -->
+                    <div class="form-group">
+                      <label for="userOpinion">Your Opinion:</label>
+                      <textarea class="form-control" id="userOpinion" name="opinion" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Assistance Friendly:</label>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="assistance_friendly" id="assistanceYes" value="yes" required>
+                        <label class="form-check-label" for="assistanceYes">Yes</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="assistance_friendly" id="assistanceNo" value="no" required>
+                        <label class="form-check-label" for="assistanceNo">No</label>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="postImage">Upload Image:</label>
+                      <input type="file" class="form-control-file" id="postImage" name="image">
+                    </div>
+                  </form>
                 </div>
 
-                <!-- Search Results -->
-                <div id="searchResults" class="mb-3" style="max-height: 200px; overflow-y: auto;"></div>
-
-                <!-- Map Container for Modal -->
-                <div id="modalMap" style="width: 100%; height: 400px; border-radius: 8px; margin-bottom: 20px; display: none;"></div>
-
-                <!-- Hidden Fields -->
-                <input type="hidden" id="latitude" name="latitude" required>
-                <input type="hidden" id="longitude" name="longitude" required>
-                <input type="hidden" id="location_name" name="location_name" required>
-
-                <!-- =================== -->
-                <!-- Post Details -->
-                <!-- =================== -->
-                <div class="form-group">
-                  <label for="userOpinion">Your Opinion:</label>
-                  <textarea class="form-control" id="userOpinion" name="opinion" rows="4" required></textarea>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" id="submitPostBtn" class="btn btn-primary">Submit Post</button>
                 </div>
-
-                <div class="form-group">
-                  <label>Assistance Friendly:</label>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="assistance_friendly" id="assistanceYes" value="yes" required>
-                    <label class="form-check-label" for="assistanceYes">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="assistance_friendly" id="assistanceNo" value="no" required>
-                    <label class="form-check-label" for="assistanceNo">No</label>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="postImage">Upload Image:</label>
-                  <input type="file" class="form-control-file" id="postImage" name="image">
-                </div>
-              </form>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" id="submitPostBtn" class="btn btn-primary">Submit Post</button>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
       <?php endif; ?>
 
     </div>

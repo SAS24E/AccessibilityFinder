@@ -20,7 +20,7 @@
             <?php
             if (isset($_SESSION['user_id']) && isset($_SESSION['is_admin']) && $_SESSION['is_admin']):
                 ?>
-                <a class="site-navigation-button" href="../controllers/admin-controller.php?action=index">Admin</a>
+                    <a class="site-navigation-button" href="../controllers/admin-controller.php?action=index">Admin</a>
             <?php endif; ?>
             <a class="site-navigation-button" href="../controllers/user-controller.php?action=logout">Logout</a>
         </nav>
@@ -30,10 +30,10 @@
 
         <!-- Display error message for incorrect file types -->
         <?php if (isset($_SESSION['upload_error'])): ?>
-            <div style="color: red; margin-bottom: 10px;">
-                <?= htmlspecialchars($_SESSION['upload_error']); ?>
-            </div>
-            <?php unset($_SESSION['upload_error']); ?>
+                <div style="color: red; margin-bottom: 10px;">
+                    <?= htmlspecialchars($_SESSION['upload_error']); ?>
+                </div>
+                <?php unset($_SESSION['upload_error']); ?>
         <?php endif; ?>
 
         <!-- Welcome message for the user-->
@@ -54,7 +54,7 @@
                 </div>
 
                 <?php if (!empty(trim($user->nick_name ?? ''))): ?>
-                    <p><strong>Nickname:</strong> <?php echo htmlspecialchars($user->nick_name); ?></p>
+                        <p><strong>Nickname:</strong> <?php echo htmlspecialchars($user->nick_name); ?></p>
                 <?php endif; ?>
                 <p><strong>Username:</strong> <?php echo htmlspecialchars($user->name ?? ''); ?></p>
                 <p><strong>Email:</strong> <?php echo htmlspecialchars($user->email ?? ''); ?></p>
@@ -96,39 +96,39 @@
                 <button type="button" id="openCreatePost" class="site-navigation-button">Create Post</button>
                 <div class="profile-posts-list">
                     <?php if (!empty($posts)): ?>
-                        <?php foreach ($posts as $post): ?>
-                            <div class="profile-post">
-                                <h2><?= htmlspecialchars($post['location_name']); ?></h2>
-                                <p><strong>Posted by:</strong> <?= htmlspecialchars($post['username']); ?></p>
-                                <p><?= nl2br(htmlspecialchars($post['opinion'])); ?></p>
-                                <p><strong>Assistance Friendly:</strong> <?= htmlspecialchars($post['assistance_friendly']); ?>
-                                </p>
-                                <?php if (!empty($post['image'])): ?>
-                                    <img src="../../public/uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image"
-                                        width="200">
-                                <?php endif; ?>
+                            <?php foreach ($posts as $post): ?>
+                                    <div class="profile-post">
+                                        <h2><?= htmlspecialchars($post['location_name']); ?></h2>
+                                        <p><strong>Posted by:</strong> <?= htmlspecialchars($post['username']); ?></p>
+                                        <p><?= nl2br(htmlspecialchars($post['opinion'])); ?></p>
+                                        <p><strong>Assistance Friendly:</strong> <?= htmlspecialchars($post['assistance_friendly']); ?>
+                                        </p>
+                                        <?php if (!empty($post['image'])): ?>
+                                                <img src="../../public/uploads/<?= htmlspecialchars($post['image']); ?>" alt="Post Image"
+                                                    width="200">
+                                        <?php endif; ?>
 
-                                <?php if (isset($_SESSION['user_id']) && isset($post['user_id']) && $post['user_id'] == $_SESSION['user_id']): ?>
-                                    <a
-                                        href="../controllers/post-controller.php?action=editForm&id=<?= htmlspecialchars($post['id']); ?>">
-                                        Edit
-                                    </a>
+                                        <?php if (isset($_SESSION['user_id']) && isset($post['user_id']) && $post['user_id'] == $_SESSION['user_id']): ?>
+                                                <a
+                                                    href="../controllers/post-controller.php?action=editForm&id=<?= htmlspecialchars($post['id']); ?>">
+                                                    Edit
+                                                </a>
 
-                                    <form action="../controllers/post-controller.php?action=delete" method="POST"
-                                        style="margin-top:6px;" onsubmit="return confirm('Delete this post?');">
+                                                <form action="../controllers/post-controller.php?action=delete" method="POST"
+                                                    style="margin-top:6px;" onsubmit="return confirm('Delete this post?');">
 
-                                        <input type="hidden" name="post_id" value="<?= htmlspecialchars($post['id']); ?>">
-                                        <button type="submit">Delete</button>
-                                    </form>
-                                <?php endif; ?>
+                                                    <input type="hidden" name="post_id" value="<?= htmlspecialchars($post['id']); ?>">
+                                                    <button type="submit">Delete</button>
+                                                </form>
+                                        <?php endif; ?>
 
 
 
-                                <p><em>Posted on <?= htmlspecialchars($post['created_at']); ?></em></p>
-                            </div>
-                        <?php endforeach; ?>
+                                        <p><em>Posted on <?= htmlspecialchars($post['created_at']); ?></em></p>
+                                    </div>
+                            <?php endforeach; ?>
                     <?php else: ?>
-                        <p>You haven't made any posts yet.</p>
+                            <p>You haven't made any posts yet.</p>
                     <?php endif; ?>
                 </div>
             </div>
@@ -149,7 +149,7 @@
                 <select name="location_id" id="popup_location_id" required>
                     <option value="">-- Select a location --</option>
                     <?php foreach ($locations as $loc): ?>
-                        <option value="<?= htmlspecialchars($loc['id']) ?>"><?= htmlspecialchars($loc['name']) ?></option>
+                            <option value="<?= htmlspecialchars($loc['id']) ?>"><?= htmlspecialchars($loc['name']) ?></option>
                     <?php endforeach; ?>
                 </select>
 

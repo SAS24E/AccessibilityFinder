@@ -9,11 +9,13 @@ require_once __DIR__ . '/../../Database/database.php';
 require_once __DIR__ . '/../models/user.php';
 require_once __DIR__ . '/../models/post.php';
 
-class AdminController {
+class AdminController
+{
     private $userModel;
     private $postModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $db = new Database();
         $conn = $db->connect();
 
@@ -28,7 +30,8 @@ class AdminController {
     }
 
     // Main admin dashboard
-    public function index() {
+    public function index()
+    {
         $users = $this->userModel->getAllUsers();
         $posts = $this->postModel->getAllPosts();
 
@@ -36,16 +39,17 @@ class AdminController {
     }
 
     // Delete a user (and cascade delete their posts)
-    public function deleteUser() {
+    public function deleteUser()
+    {
         if (!isset($_GET['id'])) {
             header("Location: admin-controller.php?action=index");
             exit;
         }
 
-        $id = (int)$_GET['id'];
+        $id = (int) $_GET['id'];
 
         // Prevent admin from deleting themselves if you want
-        if ($id === (int)$_SESSION['user_id']) {
+        if ($id === (int) $_SESSION['user_id']) {
             header("Location: admin-controller.php?action=index");
             exit;
         }
@@ -56,13 +60,14 @@ class AdminController {
     }
 
     // Delete a post
-    public function deletePost() {
+    public function deletePost()
+    {
         if (!isset($_GET['id'])) {
             header("Location: admin-controller.php?action=index");
             exit;
         }
 
-        $id = (int)$_GET['id'];
+        $id = (int) $_GET['id'];
         $this->postModel->deletePostById($id);
 
         header("Location: admin-controller.php?action=index");
@@ -70,14 +75,15 @@ class AdminController {
     }
 
     // Flag or unflag a user
-    public function flagUser() {
+    public function flagUser()
+    {
         if (!isset($_GET['id'])) {
             header("Location: admin-controller.php?action=index");
             exit;
         }
 
-        $id = (int)$_GET['id'];
-        $flag = isset($_GET['flag']) ? (int)$_GET['flag'] : 1;
+        $id = (int) $_GET['id'];
+        $flag = isset($_GET['flag']) ? (int) $_GET['flag'] : 1;
 
         $this->userModel->setUserFlag($id, $flag);
         header("Location: admin-controller.php?action=index");
@@ -85,14 +91,15 @@ class AdminController {
     }
 
     // Flag or unflag a post
-    public function flagPost() {
+    public function flagPost()
+    {
         if (!isset($_GET['id'])) {
             header("Location: admin-controller.php?action=index");
             exit;
         }
 
-        $id = (int)$_GET['id'];
-        $flag = isset($_GET['flag']) ? (int)$_GET['flag'] : 1;
+        $id = (int) $_GET['id'];
+        $flag = isset($_GET['flag']) ? (int) $_GET['flag'] : 1;
 
         $this->postModel->setPostFlag($id, $flag);
         header("Location: admin-controller.php?action=index");
