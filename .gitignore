@@ -34,7 +34,6 @@ out/
 # PHP Specific
 # ===================================
 *.log
-*.sql
 *.sqlite
 *.db
 
