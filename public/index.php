@@ -106,7 +106,12 @@ $posts = $controller->index();
                               </p>
                         <?php endif; ?>
                         <h2><?= htmlspecialchars($post['location_name']); ?></h2>
-                        <p><strong>Posted by:</strong> <?= htmlspecialchars($post['username']); ?></p>
+                        <p><strong>Posted by:</strong> 
+                          <a href="../application/controllers/user-controller.php?action=profile&id=<?= (int)$post['user_id']; ?>" 
+                             style="color: #007bff;">
+                            <?= htmlspecialchars($post['username']); ?>
+                          </a>
+                        </p>
                         <p><?= nl2br(htmlspecialchars($post['opinion'])); ?></p>
                         <p><strong>Assistance Friendly:</strong> <?= htmlspecialchars($post['assistance_friendly']); ?></p>
                         <?php if (!empty($post['image'])): ?>

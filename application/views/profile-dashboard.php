@@ -37,14 +37,15 @@
         <?php endif; ?>
 
         <!-- Welcome message for the user-->
-        <h2><?php echo htmlspecialchars($_SESSION['user_name']); ?>'s Profile</h2>
+        <h2><?php echo htmlspecialchars($user->name ?? ''); ?>'s Profile</h2>
         <div class="profile-page-container">
             <div class="profile-card">
                 <!-- Display user profile picture/ default picture if none uploaded -->
                 <img src="../../public/uploads/profile-pictures/<?php echo htmlspecialchars($user->profile_image ?? 'default.png'); ?>"
                     alt="Profile Picture" width="150" height="150" style="border-radius:50%;">
 
-                <!-- Form to upload profile picture -->
+                <!-- Form to upload profile picture (only for own profile) -->
+                <?php if ($isOwnProfile): ?>
                 <div class="profile-upload-btn">
                     <form action="../controllers/user-controller.php?action=uploadProfileImage" method="POST"
                         enctype="multipart/form-data">
@@ -52,6 +53,7 @@
                         <button type="submit">Upload</button>
                     </form>
                 </div>
+                <?php endif; ?>
 
                 <?php if (!empty(trim($user->nick_name ?? ''))): ?>
                         <p><strong>Nickname:</strong> <?php echo htmlspecialchars($user->nick_name); ?></p>
@@ -66,10 +68,13 @@
                 <div id="bioDisplay" class="bio-container">
                     <p><strong>Biography:</strong></p>
                     <p><?php echo htmlspecialchars($user->biography ?? ''); ?></p>
+                    <?php if ($isOwnProfile): ?>
                     <button type="button" onclick="toggleBioEdit()">Edit Bio</button>
+                    <?php endif; ?>
                 </div>
 
-                <!-- Edit mode (hidden   by default) -->
+                <!-- Edit mode (hidden by default, only for own profile) -->
+                <?php if ($isOwnProfile): ?>
                 <div id="bioEdit" style="display: none;">
                     <form method="POST" action="../controllers/user-controller.php?action=updateBio">
                         <p><strong>Edit Bio:</strong></p>
@@ -80,6 +85,7 @@
                         <button type="button" onclick="toggleBioEdit()">Cancel</button>
                     </form>
                 </div>
+                <?php endif; ?>
                 <!-- Form to "Create a Post -->
                 <?php
                 if (!isset($locations) || !is_array($locations)) {
@@ -92,8 +98,10 @@
             </div>
 
             <div class="profile-posts-container">
-                <!-- Create Post trigger (opens popup) -->
+                <!-- Create Post trigger (opens popup, only for own profile) -->
+                <?php if ($isOwnProfile): ?>
                 <button type="button" id="openCreatePost" class="site-navigation-button">Create Post</button>
+                <?php endif; ?>
                 <div class="profile-posts-list">
                     <?php if (!empty($posts)): ?>
                             <?php foreach ($posts as $post): ?>

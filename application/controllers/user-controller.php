@@ -99,16 +99,19 @@ class UserController
         exit;
     }
 
-    // Show profile page for logged-in users
+    // Show profile page for logged-in users or view other users' profiles
     public function profile()
     {
-        if (!isset($_SESSION['user_id'])) {
+        // Check if viewing another user's profile via id=X
+        $viewUserId = isset($_GET['id']) ? intval($_GET['id']) : null;
+        
+        if ($viewUserId === null && !isset($_SESSION['user_id'])) {
             header("Location: ../../public/index.php");
             exit;
         }
-        // getUserById() is defined in models/user.php
-        // currently getUserById() returns a user object (name, email, password)
-        $userId = $_SESSION['user_id'];
+        
+        // Determine which user's profile to show
+        $userId = $viewUserId ?? $_SESSION['user_id'];
         $userData = $this->user->getUserById($userId);
 
         // If user not found, display an error message
@@ -119,11 +122,14 @@ class UserController
 
         // Make $user available to the view
         $user = $userData;
-        // Load posts for this user so the profile only shows their posts
+        // Check if viewing own profile
+        $isOwnProfile = isset($_SESSION['user_id']) && $_SESSION['user_id'] == $userId;
+        
+        // Load posts for this user
         $postModel = new PostModel((new Database())->connect());
         $posts = $postModel->getPostsByUser($userId);
-        // lightweight count for displaying total posts on the profile
         $postCount = $postModel->getPostCountByUser($userId);
+        
         require_once __DIR__ . '/../views/profile-dashboard.php';
     }
 
