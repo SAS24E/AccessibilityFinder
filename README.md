@@ -1,28 +1,74 @@
-# AccessibilityFinder
-# Team: Bit by Bit 
-# Team Members
-- **Jose Solano** – jls23k@fsu.edu  
-- **Eliah Hooks** – enh22a@fsu.edu  
-- **Alex Secor** – sas24e@fsu.edu  
-- **Maria Vegas** – mvv22a@fsu.edu  
-- **Daniela Nunez** – dn23e@fsu.edu 
+# Accessibility Finder
 
-Website URL:  accessiblityfinder.xo.je
-Problem Statement:
-People with disabilities often face challenges in their quality of life experiences. Being able to go out and enjoy certain activities can be difficult not only because of their disabilities but also because of locations that do not accommodate their needs. There needs to be a centralized place to find restaurants, events, or social activities that recognize their accommodations for people with disabilities, and consumers can back up what the businesses claim. 
+A crowdsourced web application that helps users discover, rate, and share accessibility information for real-world locations.
 
-Project Overview
-Bit by Bit recognizes that people with disabilities should have an app that caters to their needs, making locations more accessible. By creating a web application that allows people with disabilities to find places such as restaurants or stores with a high level of accessibility, we hope to increase the quality of disabled users' experiences across different areas of life. To create an application that meets these needs, we will implement location services to view the accessibility level of a specific location. Additionally, our application will receive user input to confirm the validity of a location's accessibility. Our application will feature an intuitive interface that enables users with disabilities to obtain accurate accessibility reviews for any location they choose.
+## Team: Bit by Bit
+- Jose Solano – jls23k@fsu.edu
+- Eliah Hooks – enh22a@fsu.edu
+- Alex Secor – sas24e@fsu.edu
+- Maria Vegas – mvv22a@fsu.edu
+- Daniela Nunez – dn23e@fsu.edu
 
-Goals
-Create a web application that allows users to find handicap accessible locations. 
-Create an online social atmosphere that enables users to share information.
-Allow users to comment or review locations that claim to offer disability services. . 
+Website: https://accessiblityfinder.xo.je
 
-Stretch Goals
-Allow users to add images to the reviews/comments.
-Make the web application completely mobile-friendly. 
-Incorporate AI to review the authenticity of reports. 
+## Overview
+Accessibility Finder provides a centralized place where users can view accessibility ratings for locations and contribute their own experiences. The goal of the project is to improve the quality of life for individuals with disabilities by making accessibility information easy to find and community-driven.
 
-Specifications
-The application will be built with HTML, CSS, and JavaScript for the front-end structure. PHP for the backend structure, Google Firebase for the database structure, and perhaps some Google APIs for individual services like locations or messaging. The application will be optimized to scale across various devices, including smartphones, tablets, laptops, and desktop computers.
+## Technologies Used
+**Frontend**
+- HTML, CSS, JavaScript
+- Bootstrap 5
+- MapLibre GL JS
+- Nominatim API (OpenStreetMap)
+
+**Backend**
+- PHP 8
+- PDO (secure database access)
+- Session-based authentication
+- bcrypt password hashing
+
+**Database**
+- MySQL (InfinityFree hosting)
+- Foreign keys, cascade deletes
+- Tables for users, posts, comments, and reviews
+
+## Features
+- Interactive map with accessibility markers
+- Location search using Nominatim API
+- User authentication (register/login)
+- Create and review locations
+- Comment and voting features
+- Mobile-friendly interface (in progress)
+
+## Requirements
+- PHP 8+
+- MySQL 5.7+
+- Apache or Nginx server
+- PHP extensions: pdo_mysql, openssl, session
+- XAMPP or similar for local testing
+
+## Installation
+1. Clone the repository:
+   git clone https://github.com/SAS24E/AccessibilityFinder.git
+
+2. Import the database:
+   - Create a MySQL database
+   - Import the SQL file from the /Database folder
+
+3. Configure the database connection:
+   Edit application/config/Database.php with your credentials.
+
+4. Run locally:
+   Place the project inside /xampp/htdocs/
+   Visit: http://localhost/AccessibilityFinder/public/index.php
+
+## Roadmap
+- Add profile pictures
+- Add image uploads to posts
+- Improve mobile UI
+- Add AI-assisted review scoring
+- Clean URL routing (MVC)
+
+## Contributors
+Developed by the Bit by Bit team at Florida State University.
+
