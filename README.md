@@ -63,11 +63,18 @@ Accessibility Finder provides a centralized place where users can view accessibi
    Visit: http://localhost/AccessibilityFinder/public/index.php
 
 ## Roadmap
-- Add profile pictures
-- Add image uploads to posts
-- Improve mobile UI
-- Add AI-assisted review scoring
-- Clean URL routing (MVC)
+- Add like functionality
+- Add users location to profile
+- Ensure full keyboard navigation across all pages
+- Add text alternatives (alt text) for all images
+- Support adjustable text size / zoom without layout issues
+- Directions integrations
+- Category filters (restaurants, parks, medical offices, etc.)
+- Image galleries for each location
+- Reputation system for reviewers
+- Comments on posts / threads
+- Notification system
+
 
 ## Contributors
 Developed by the Bit by Bit team at Florida State University.
