@@ -1,4 +1,4 @@
-<!-- # AccessibilityFinder
+# AccessibilityFinder
 # Team: Bit by Bit 
 # Team Members
 - **Jose Solano** – jls23k@fsu.edu  
@@ -25,4 +25,4 @@ Make the web application completely mobile-friendly.
 Incorporate AI to review the authenticity of reports. 
 
 Specifications
-The application will be built with HTML, CSS, and JavaScript for the front-end structure. PHP for the backend structure, Google Firebase for the database structure, and perhaps some Google APIs for individual services like locations or messaging. The application will be optimized to scale across various devices, including smartphones, tablets, laptops, and desktop computers.  -->
+The application will be built with HTML, CSS, and JavaScript for the front-end structure. PHP for the backend structure, Google Firebase for the database structure, and perhaps some Google APIs for individual services like locations or messaging. The application will be optimized to scale across various devices, including smartphones, tablets, laptops, and desktop computers.
